@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Edit details — Step 3 of flow</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <!-- Backdrop: the MMB hub partly visible behind the modal -->
+  <div class="frame" aria-hidden="true">
+    <header class="app-header">
+      <div class="app-header__brand">My booking</div>
+    </header>
+    <section class="mmb-hero">
+      <h1 class="mmb-hero__greeting">Hello John, your trip to Paphos, Cyprus</h1>
+      <p class="mmb-hero__sub">TUI booking reference number · 0000010</p>
+    </section>
+  </div>
+
+  <!-- Modal overlay -->
+  <div class="modal-scrim" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal__header">
+        <span id="modal-title">Edit details</span>
+        <a href="02-mmb-entry.html" class="modal__close" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </a>
+      </div>
+
+      <div class="modal__body">
+
+        <!-- Section: passenger header -->
+        <section>
+          <span class="tag tag--info" style="margin-bottom: 8px;">Lead passenger</span>
+          <h2 class="modal__title">Mr. John Smith</h2>
+          <p class="modal__subtitle">Please ensure that the information entered exactly matches your passport.</p>
+        </section>
+
+        <!-- Top alert: free name correction info -->
+        <div class="alert alert--info">
+          <div class="alert__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <div class="alert__body">
+            <div class="alert__title">Free name correction available</div>
+            <p id="alert-expand" style="font-size: var(--fs-md); margin: 6px 0 4px; color: var(--text-body);" hidden>Make a correction for free. Up to 3 characters in the first name or Surname. Larger changes are charged at £25 per passenger.</p>
+            <a href="javascript:void(0)" class="alert__link" id="alert-toggle">Show more</a>
+          </div>
+        </div>
+
+        <!-- Personal details -->
+        <section>
+          <div class="field">
+            <label class="field__label" for="title">Title</label>
+            <select id="title" class="field__select">
+              <option>Mr</option>
+              <option>Mrs</option>
+              <option>Miss</option>
+              <option>Ms</option>
+              <option>Dr</option>
+            </select>
+          </div>
+
+          <div class="field" id="field-first">
+            <label class="field__label" for="first-name">First name</label>
+            <input id="first-name" type="text" class="field__input" value="John" autocomplete="off">
+            <span class="field__validation" id="val-first" hidden></span>
+            <span class="tag tag--warning tag--absolute" id="tag-first" hidden>Unsaved change</span>
+          </div>
+
+          <div class="field" id="field-surname">
+            <label class="field__label" for="surname">Surname</label>
+            <input id="surname" type="text" class="field__input" value="Smith" autocomplete="off">
+            <span class="field__validation" id="val-surname" hidden></span>
+            <span class="tag tag--warning tag--absolute" id="tag-surname" hidden>Unsaved change</span>
+          </div>
+
+          <div class="field">
+            <label class="field__label">Date of birth</label>
+            <div class="dob-group">
+              <div class="field">
+                <label class="field__label" for="dob-day">Day</label>
+                <input id="dob-day" class="field__input" value="12" inputmode="numeric" maxlength="2">
+              </div>
+              <div class="field">
+                <label class="field__label" for="dob-month">Month</label>
+                <input id="dob-month" class="field__input" value="12" inputmode="numeric" maxlength="2">
+              </div>
+              <div class="field">
+                <label class="field__label" for="dob-year">Year</label>
+                <input id="dob-year" class="field__input" value="1980" inputmode="numeric" maxlength="4">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact / Address -->
+        <section style="border-top: 1px solid var(--border); padding-top: 16px;">
+          <div class="field field--narrow">
+            <label class="field__label" for="address-house">Address</label>
+            <span class="field__hint">House number / Building</span>
+            <input id="address-house" class="field__input" value="Wigmore House" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="field__hint">Street name</span>
+            <input id="address-street" class="field__input" value="Wigmore Place" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="field__hint">Address Line 2 (optional)</span>
+            <input id="address-line2" class="field__input" value="" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="field__hint">City / Town</span>
+            <input id="address-city" class="field__input" value="Luton" autocomplete="off">
+          </div>
+          <div class="field">
+            <span class="field__hint">Postcode</span>
+            <input id="address-postcode" class="field__input" value="LU29TN" autocomplete="off">
+          </div>
+          <div class="field field--country">
+            <label class="field__label" for="country">Country of residence</label>
+            <select id="country" class="field__select">
+              <option>United Kingdom</option>
+              <option>Ireland</option>
+              <option>France</option>
+              <option>Germany</option>
+              <option>Spain</option>
+            </select>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="modal__footer">
+        <!-- Footer alert: appears only when modifications exist -->
+        <div class="alert alert--info" id="footer-alert-free" hidden>
+          <div class="alert__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <div class="alert__body">
+            Your changes count as your <strong>Free name correction</strong>
+          </div>
+        </div>
+
+        <div class="alert alert--info" id="footer-alert-chargeable" hidden>
+          <div class="alert__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+          <div class="alert__body">
+            Changes to names or date-of-birth on this booking are <strong>charged at £25 per passenger</strong>
+          </div>
+        </div>
+
+        <div class="modal__footer-ctas">
+          <a href="02-mmb-entry.html" class="linkbtn" id="cancel-link" hidden>Cancel</a>
+          <button type="button" class="btn btn--primary" id="primary-cta">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/prototype.js"></script>
+  <script>
+    // ─── Flow 1 Edit Modal Controller ───────────────────────────
+    const ORIG = window.MMB.defaults;
+    const firstInput   = document.getElementById('first-name');
+    const surnameInput = document.getElementById('surname');
+    const fieldFirst   = document.getElementById('field-first');
+    const fieldSurname = document.getElementById('field-surname');
+    const valFirst     = document.getElementById('val-first');
+    const valSurname   = document.getElementById('val-surname');
+    const tagFirst     = document.getElementById('tag-first');
+    const tagSurname   = document.getElementById('tag-surname');
+    const footerFree   = document.getElementById('footer-alert-free');
+    const footerCharge = document.getElementById('footer-alert-chargeable');
+    const cancelLink   = document.getElementById('cancel-link');
+    const cta          = document.getElementById('primary-cta');
+
+    // Bug 7/8: track which fields the user has actively typed in this session
+    const touched = new Set();
+
+    // Bug 6: Show more / Show less toggle
+    document.getElementById('alert-toggle').addEventListener('click', function(e) {
+      e.preventDefault();
+      const expand = document.getElementById('alert-expand');
+      const isOpen = !expand.hidden;
+      expand.hidden = isOpen;
+      this.textContent = isOpen ? 'Show more' : 'Show less';
+    });
+
+    function pluralChars(n) { return n === 1 ? '1 Character changed' : n + ' Characters changed'; }
+
+    function recompute() {
+      const edited = {
+        firstName: firstInput.value.trim(),
+        surname:   surnameInput.value.trim()
+      };
+      const result = window.MMB.evaluateNameEdit(ORIG, edited);
+
+      // Reset visual state
+      fieldFirst.classList.remove('field--modified');
+      fieldSurname.classList.remove('field--modified');
+      valFirst.hidden = true;
+      valSurname.hidden = true;
+      tagFirst.hidden = true;
+      tagSurname.hidden = true;
+      footerFree.hidden = true;
+      footerCharge.hidden = true;
+
+      if (result.state === 'unchanged') {
+        cta.textContent = 'Close';
+        cancelLink.hidden = true;
+        cta.dataset.action = 'close';
+        return;
+      }
+
+      // Per-field modified border + tag/validation (only if user has typed in that field)
+      if (result.firstChanges > 0) {
+        fieldFirst.classList.add('field--modified');
+        if (touched.has('first')) {
+          tagFirst.hidden = false;
+          valFirst.textContent = pluralChars(result.firstChanges) +
+            (result.state === 'correction' ? '. Counts as a free name correction' : '. Counts as name change');
+          valFirst.hidden = false;
+        }
+      }
+      if (result.surnameChanges > 0) {
+        fieldSurname.classList.add('field--modified');
+        if (touched.has('surname')) {
+          tagSurname.hidden = false;
+          valSurname.textContent = pluralChars(result.surnameChanges) +
+            (result.state === 'correction' ? '. Counts as a free name correction' : '. Counts as name change');
+          valSurname.hidden = false;
+        }
+      }
+
+      // Footer alerts — only after user has touched a field (bug 8)
+      if (touched.size > 0) {
+        if (result.state === 'correction') {
+          footerFree.hidden = false;
+        } else {
+          footerCharge.hidden = false;
+        }
+      }
+
+      if (result.state === 'correction') {
+        cta.innerHTML = 'Confirm changes <strong>FREE</strong>';
+        cancelLink.hidden = false;
+        cta.dataset.action = 'free-submit';
+      } else {
+        cta.textContent = 'Continue';
+        cancelLink.hidden = false;
+        cta.dataset.action = 'change-submit';
+      }
+    }
+
+    firstInput.addEventListener('input', function() { touched.add('first'); recompute(); });
+    surnameInput.addEventListener('input', function() { touched.add('surname'); recompute(); });
+
+    cta.addEventListener('click', function() {
+      const action = cta.dataset.action;
+      if (action === 'close') {
+        window.location.href = '02-mmb-entry.html';
+        return;
+      }
+      window.MMB.save({
+        firstName: firstInput.value.trim(),
+        surname:   surnameInput.value.trim(),
+        title:     document.getElementById('title').value,
+        flow:      2
+      });
+      if (action === 'free-submit') {
+        // Bug 14: free correction routes to flow1 confirm screen
+        window.location.href = '../flow1/05-confirm.html';
+      } else {
+        // chargeable stays in flow2
+        window.location.href = '05-mmb-unsaved.html';
+      }
+    });
+
+    // Bug 10: Restore previous edits if returning from confirm screen
+    const prev = window.MMB.load();
+    if (prev && prev.firstName !== undefined) {
+      firstInput.value = prev.firstName;
+      if (prev.surname !== undefined) surnameInput.value = prev.surname;
+      const titleSel = document.getElementById('title');
+      if (prev.title) {
+        Array.from(titleSel.options).forEach(function(opt, i) {
+          if (opt.text === prev.title) titleSel.selectedIndex = i;
+        });
+      }
+    }
+
+    // Initialise CTA state; touched is empty so no tags/footer shown on load
+    recompute();
+  </script>
+</body>
+</html>

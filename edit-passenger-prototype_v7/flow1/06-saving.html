@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saving changes — Step 6 of flow</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="frame" aria-hidden="true">
+    <header class="app-header">
+      <div class="app-header__brand">My booking</div>
+    </header>
+  </div>
+
+  <div class="modal-scrim" role="dialog" aria-modal="true" aria-labelledby="saving-label">
+    <div class="modal">
+      <div class="modal__header">
+        <span id="saving-label">Saving changes</span>
+      </div>
+
+      <div class="modal__body">
+        <div class="saving-area" role="status" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <span class="visually-hidden" style="position:absolute;left:-9999px;">Saving your changes…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/prototype.js"></script>
+  <script>
+    // Real loader timing — 1.6s so participants register the spinner
+    setTimeout(function () {
+      window.location.href = '07-success.html';
+    }, 1600);
+  </script>
+</body>
+</html>
