@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unsaved changes — Step 5 of flow</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="frame">
+    <header class="app-header">
+      <div class="app-header__brand">My booking</div>
+    </header>
+
+    <!-- Unsaved-changes banner — prominent at the top -->
+    <div class="unsaved-banner" role="status" aria-live="polite">
+      <div class="unsaved-banner__header">
+        <span class="unsaved-banner__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </span>
+        <div>
+          <div class="unsaved-banner__title">Your holiday has unsaved changes</div>
+          <div class="unsaved-banner__body">Unsaved changes are held for 30 minutes</div>
+        </div>
+      </div>
+      <button type="button" class="btn btn--primary btn--block" id="review-cta">
+        Review &amp; confirm
+      </button>
+    </div>
+
+    <section class="mmb-hero">
+      <h1 class="mmb-hero__greeting" id="greeting">Hello John, your trip to Paphos, Cyprus</h1>
+      <p class="mmb-hero__sub">TUI booking reference number · 0000010</p>
+
+      <div class="mmb-countdown" aria-label="Countdown to departure">
+        <div class="mmb-countdown__box">
+          <div class="mmb-countdown__value" id="cd-days">—</div>
+          <div class="mmb-countdown__label">Days</div>
+        </div>
+        <div class="mmb-countdown__box">
+          <div class="mmb-countdown__value" id="cd-hours">—</div>
+          <div class="mmb-countdown__label">Hours</div>
+        </div>
+        <div class="mmb-countdown__box">
+          <div class="mmb-countdown__value" id="cd-mins">—</div>
+          <div class="mmb-countdown__label">Mins</div>
+        </div>
+        <div class="mmb-countdown__box">
+          <div class="mmb-countdown__value" id="cd-secs">—</div>
+          <div class="mmb-countdown__label">Secs</div>
+        </div>
+      </div>
+
+      <div class="mmb-hero__hotel">TUI BLUE Pioneer Beach</div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Passengers
+      </h2>
+
+      <article class="passenger-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span class="tag tag--info">Lead passenger</span>
+          <span class="tag tag--warning">Unsaved change</span>
+        </div>
+        <div class="passenger-card__name" id="pax-name">Mr. Jonathan Smith</div>
+        <div class="passenger-card__dob">Date of birth: 12/12/1980</div>
+        <div class="passenger-card__address">Wigmore House
+Wigmore Place
+Luton
+LU29TN
+United Kingdom</div>
+        <a href="03-edit.html" class="passenger-card__edit">Edit lead passenger details</a>
+        <div class="passenger-card__divider"></div>
+        <div class="passenger-card__contact">
+          07898 464938<br>
+          jon.smith@gmail.com<br>
+          <a href="javascript:void(0)" class="passenger-card__contact-link" onclick="event.preventDefault();">Contact us to change contact details</a>
+        </div>
+      </article>
+
+      <article class="passenger-card">
+        <div class="passenger-card__name">Mrs. Jane Smith</div>
+        <div class="passenger-card__dob">Date of birth: 12/12/1980</div>
+        <a href="javascript:void(0)" class="passenger-card__edit" onclick="event.preventDefault();">Edit passenger details</a>
+      </article>
+    </section>
+  </div>
+
+  <script src="../assets/prototype.js"></script>
+  <script>
+    // Reflect the edited name on the passenger card only (greeting stays original — changes are unsaved)
+    const saved = window.MMB.load();
+    if (saved && (saved.firstName || saved.surname)) {
+      const title = saved.title || 'Mr';
+      const first = saved.firstName || 'John';
+      const surn  = saved.surname   || 'Smith';
+      document.getElementById('pax-name').textContent = title + '. ' + first + ' ' + surn;
+    }
+
+    document.getElementById('review-cta').addEventListener('click', function () {
+      window.location.href = '06-review.html';
+    });
+
+    // Departure countdown
+    const departure = new Date();
+    departure.setDate(departure.getDate() + 120);
+    departure.setHours(departure.getHours() + 12);
+    window.MMB.startDateCountdown(departure, {
+      days: 'cd-days', hours: 'cd-hours', mins: 'cd-mins', secs: 'cd-secs'
+    });
+  </script>
+</body>
+</html>

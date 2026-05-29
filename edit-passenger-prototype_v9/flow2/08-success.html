@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Changes saved — Step 8 of flow</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="frame">
+    <header class="app-header">
+      <div class="app-header__brand">My booking</div>
+    </header>
+
+    <section class="section">
+      <div class="success-hero">
+        <div class="success-hero__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h1 class="success-hero__title">Changes saved</h1>
+        <p class="success-hero__sub">Your booking has been updated</p>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">What has changed</h3>
+        <div class="lineitem">
+          <span class="lineitem__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </span>
+          <div class="lineitem__body">
+            <div class="lineitem__title-row">
+              <span class="lineitem__title">Passenger name change</span>
+              <span class="lineitem__price">£25.00</span>
+            </div>
+            <div class="lineitem__detail" id="pax-name-detail">Mr. Jonathan Smith</div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="fee-row">
+          <span>Amendment fees total</span>
+          <span>£25.00</span>
+        </div>
+      </div>
+
+      <div style="padding: 0 4px; margin-top: 24px;">
+        <h3 class="card__title">What happens next</h3>
+        <div class="lineitem">
+          <span class="lineitem__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </span>
+          <div class="lineitem__body">
+            <div class="lineitem__title">Confirmation email sent</div>
+            <div class="lineitem__detail" id="email-detail">jon.smith@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="lineitem">
+          <span class="lineitem__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </span>
+          <div class="lineitem__body">
+            <div class="lineitem__title">Check your travel documents match</div>
+            <div class="lineitem__detail">Names on your booking must match the passport you'll travel with.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <a href="08-mmb-updated.html" class="btn btn--primary btn--block" id="view-booking">View my booking</a>
+      </div>
+    </section>
+  </div>
+
+  <script src="../assets/prototype.js"></script>
+  <script>
+    const saved = window.MMB.load();
+    if (saved && (saved.firstName || saved.surname)) {
+      const title = saved.title || 'Mr';
+      const first = saved.firstName || 'John';
+      const surn  = saved.surname   || 'Smith';
+      document.getElementById('pax-name-detail').textContent = title + '. ' + first + ' ' + surn;
+      document.getElementById('email-detail').textContent = 'jon.smith@gmail.com';
+    }
+
+    // Booking now saved — clear the hold timer
+    sessionStorage.removeItem('tui-mmb-proto-holdstart');
+  </script>
+</body>
+</html>

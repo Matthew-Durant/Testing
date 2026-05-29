@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pay for your changes — Step 7 of flow</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="frame">
+    <header class="app-header">
+      <a href="06-review.html" class="app-header__back" aria-label="Back to review">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Back
+      </a>
+    </header>
+
+    <section class="section">
+      <h1 class="modal__title" style="margin-bottom: 16px;">Paying for your holiday</h1>
+
+      <div class="alert alert--warning" style="align-items: center;">
+        <div class="alert__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <div class="alert__body">
+          <strong>Reserved for <span id="hold-timer">30m 00s</span></strong>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 16px;">
+        <h3 class="card__title">Payment options</h3>
+        <label style="display: flex; gap: 10px; align-items: center; padding: 8px 0; cursor: pointer;">
+          <input type="radio" name="payopt" checked style="margin: 0;">
+          <span style="flex: 1;">Payment due today</span>
+          <strong>£25.00</strong>
+        </label>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">Payment method</h3>
+        <label style="display: flex; gap: 10px; align-items: center; padding: 10px 0; cursor: pointer; border-bottom: 1px solid var(--border);">
+          <input type="radio" name="paymethod" checked style="margin: 0;">
+          <span>Card payment</span>
+        </label>
+        <label style="display: flex; gap: 10px; align-items: center; padding: 10px 0; cursor: pointer;">
+          <input type="radio" name="paymethod" style="margin: 0;">
+          <span>PayPal</span>
+        </label>
+      </div>
+
+      <div class="card">
+        <h3 class="card__title">Card details</h3>
+
+        <div class="field">
+          <label class="field__label" for="card-number">Card number</label>
+          <input id="card-number" type="text" class="field__input" inputmode="numeric" autocomplete="off" placeholder="">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="card-name">Name on card</label>
+          <input id="card-name" type="text" class="field__input" autocomplete="off">
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 16px; align-items: flex-start;">
+          <div class="field" style="flex: 1;">
+            <label class="field__label" for="card-expiry">Expiry date (MM/YY)</label>
+            <input id="card-expiry" type="text" class="field__input" inputmode="numeric" maxlength="5" autocomplete="off">
+          </div>
+          <div class="field" style="flex: 1; margin-top: 0;">
+            <label class="field__label" for="card-cvc">Security code</label>
+            <input id="card-cvc" type="text" class="field__input" inputmode="numeric" maxlength="4" autocomplete="off">
+            <p class="field__hint" style="margin-top: 4px;">3 or 4 digits printed on your card.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
+          <input type="checkbox" id="terms" style="margin-top: 4px;">
+          <span>I have read and accept the booking conditions and terms &amp; conditions</span>
+        </label>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <p style="margin-bottom: 12px; color: var(--text-body); font-size: 14px;">You're about to pay <strong>£25.00</strong></p>
+        <button type="button" class="btn btn--primary btn--block" id="pay-cta">Pay now</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="../assets/prototype.js"></script>
+  <script>
+    // Continue the same 30-min hold timer from screen 06
+    const STORAGE = 'tui-mmb-proto-holdstart';
+    let startTs = parseInt(sessionStorage.getItem(STORAGE) || '0', 10);
+    if (!startTs) {
+      startTs = Date.now();
+      sessionStorage.setItem(STORAGE, String(startTs));
+    }
+    const elapsed = Math.floor((Date.now() - startTs) / 1000);
+    const remaining = Math.max(0, (30 * 60) - elapsed);
+    window.MMB.startCountdown('hold-timer', remaining, { template: '{m}m {s}s' });
+
+    document.getElementById('pay-cta').addEventListener('click', function () {
+      window.location.href = '08-success.html';
+    });
+  </script>
+</body>
+</html>
