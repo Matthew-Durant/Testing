@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>We could not cancel your booking - Facilitator branch</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+
+<div class="lo-frame" aria-hidden="true">
+  <header class="lo-appbar">
+    <button class="lo-iconbtn" tabindex="-1" aria-label="Menu">
+      <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <h1>My booking</h1>
+  </header>
+</div>
+
+<div class="lo-dialogwrap" role="dialog" aria-modal="true" aria-labelledby="screen-title">
+  <div class="lo-dialog">
+
+    <div class="lo-dialog-head">
+      <span class="lo-dialog-label">Cancel your booking</span>
+      <a class="lo-iconbtn" href="../flow1-paid-in-full/01-trip-summary.html" aria-label="Close">
+        <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="lo-dialog-body">
+
+      <div class="lo-dialog-titlewrap">
+        <svg class="lo-ico is-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+        <h1 class="lo-dialog-title" id="screen-title" data-screen-heading>We could not cancel your booking</h1>
+      </div>
+
+      <div class="lo-status is-error" role="alert">
+        <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+        <div>
+          <span class="lo-status-title">Nothing has changed</span>
+          Your booking is still active and no money has been taken or refunded.
+        </div>
+      </div>
+
+      <div class="lo-bookingref">
+        <span class="lo-t-xs">Your booking:</span>
+        <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach</span>
+        <span class="lo-t-md" data-mmb="stay-range">Wed 21 Oct 2026 - Wed 28 Oct 2026</span>
+        <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
+      </div>
+
+      <div class="lo-card-nested">
+        <h2 class="lo-t-md">What to do now</h2>
+        <p class="lo-t-sm">Call our team on <span data-mmb="contact-phone">01 693 7700</span> and quote your booking reference. They can cancel it for you and confirm the refund while you are on the call.</p>
+        <p class="lo-t-sm">The fee quoted to you today applies until midnight, so calling now does not cost you more.</p>
+      </div>
+
+      <div class="lo-btnbar">
+        <a class="lo-btn is-block" href="../flow1-paid-in-full/04-confirm-cancellation.html">Try again</a>
+        <a class="lo-btn is-secondary is-block" href="../flow1-paid-in-full/01-trip-summary.html">Back to my booking</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+MMB.track('cancel_failed', { dtd: MMB.dates.dtd() });
+</script>
+</body>
+</html>

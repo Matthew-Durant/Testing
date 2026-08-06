@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Confirm your cancellation - Step 4 of 6</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+
+<div class="lo-frame" aria-hidden="true">
+  <header class="lo-appbar">
+    <button class="lo-iconbtn" tabindex="-1" aria-label="Menu">
+      <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <h1>My booking</h1>
+  </header>
+</div>
+
+<div class="lo-dialogwrap" role="dialog" aria-modal="true" aria-labelledby="screen-title">
+  <div class="lo-dialog">
+
+    <div class="lo-dialog-head">
+      <span class="lo-dialog-label">Cancel your booking</span>
+      <a class="lo-iconbtn" href="01-trip-summary.html" aria-label="Close and keep my booking" id="close-confirm">
+        <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="lo-dialog-body">
+
+      <div class="lo-dialog-titlewrap">
+        <svg class="lo-ico is-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M17 8l5 5M22 8l-5 5"/></svg>
+        <h1 class="lo-dialog-title" id="screen-title" data-screen-heading>Confirm your cancellation</h1>
+      </div>
+
+      <div class="lo-bookingref">
+        <span class="lo-t-xs">Your booking:</span>
+        <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach</span>
+        <span class="lo-t-sm" data-mmb="hotel-location">In Playa Blanca, Lanzarote, Canary Islands, Spain</span>
+        <span class="lo-t-md" data-mmb="stay-range">Wed 21 Oct 2026 - Wed 28 Oct 2026</span>
+        <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
+      </div>
+
+      <div class="lo-card-nested">
+        <h2 class="lo-t-md">Your refund breakdown confirmed</h2>
+        <div class="lo-breakdown">
+          <p class="lo-line"><span>Deposit paid</span><span data-mmb="deposit">&pound;400.00</span></p>
+          <p class="lo-line"><span>Total paid to date</span><span data-mmb="paid-to-date">&pound;10,439.00</span></p>
+          <p class="lo-line"><span>Cancellation fee today</span><span data-mmb="fee-today">&pound;0.00</span></p>
+          <p class="lo-line"><span>Non-refundable extras</span><span data-mmb="extras">&pound;0.00</span></p>
+          <p class="lo-line is-total"><span>Total refund due</span><span data-mmb="refund">&pound;10,039.00</span></p>
+        </div>
+        <p class="lo-t-sm">Refund to <span data-mmb="card">Visa card ending 1083</span>, processed within 7 to 14 business days.</p>
+      </div>
+
+      <div class="lo-card-nested">
+        <h2 class="lo-t-md">Before you cancel</h2>
+        <p class="lo-t-sm">Looking to change your dates or hotel? You can amend your booking. Do this online or by calling our team on <span data-mmb="contact-phone">01 693 7700</span>.</p>
+
+        <div class="lo-status is-warning" role="note">
+          <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+          <div>
+            <span class="lo-status-title">Once cancelled, this action cannot be undone</span>
+            Any extras booked separately (excursions, transfers, parking) must be cancelled independently.
+          </div>
+        </div>
+
+        <label class="lo-ack" for="ack">
+          <input type="checkbox" id="ack">
+          <span id="ack-copy">I understand cancelling today means losing my deposit, and this cannot be undone</span>
+        </label>
+
+        <div class="lo-btnbar">
+          <button class="lo-btn is-block is-disabled" id="commit" disabled aria-describedby="commit-hint">Cancel my booking</button>
+          <p class="lo-btnhint" id="commit-hint">Tick the checkbox above to enable this button</p>
+          <a class="lo-btn is-secondary is-block" href="01-trip-summary.html" id="keep">Keep my booking</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+(function () {
+  MMB.track('cancel_confirm_viewed', {
+    dtd: MMB.dates.dtd(),
+    chargePence: MMB.chargePence(),
+    refundPence: MMB.refundPence()
+  });
+
+  /* Conditional copy: outside the loss-of-deposit band the participant is
+     losing a percentage charge, not simply the deposit, and the
+     acknowledgement has to say so or it is not an informed acknowledgement. */
+  var band = MMB.bandFor(MMB.dates.dtd());
+  var refund = MMB.money(MMB.refundPence());
+  document.getElementById('ack-copy').textContent = band.pct === null
+    ? 'I understand cancelling today means losing my ' + MMB.money(MMB.scenario.depositPence)
+      + ' deposit, I will receive ' + refund + ' back, and this cannot be undone'
+    : 'I understand cancelling today means a cancellation charge of ' + MMB.money(MMB.chargePence())
+      + ', I will receive ' + refund + ' back, and this cannot be undone';
+
+  var ack  = document.getElementById('ack');
+  var btn  = document.getElementById('commit');
+  var hint = document.getElementById('commit-hint');
+
+  ack.addEventListener('change', function () {
+    btn.disabled = !ack.checked;
+    btn.classList.toggle('is-disabled', !ack.checked);
+    hint.hidden = ack.checked;
+    if (ack.checked) MMB.track('cancel_ack_ticked');
+  });
+
+  btn.addEventListener('click', function () {
+    if (btn.disabled) return;
+    MMB.track('cancel_submitted', { refundPence: MMB.refundPence() });
+    window.location.href = '05-cancelling.html';
+  });
+
+  document.getElementById('keep').addEventListener('click', function () {
+    MMB.track('cancel_confirm_keep');
+  });
+  document.getElementById('close-confirm').addEventListener('click', function () {
+    MMB.track('cancel_confirm_keep', { via: 'close' });
+  });
+})();
+</script>
+</body>
+</html>

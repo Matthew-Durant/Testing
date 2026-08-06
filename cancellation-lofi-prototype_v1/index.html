@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMB cancellation prototype - moderator index</title>
+<link rel="stylesheet" href="assets/lofi.css">
+</head>
+<body style="background:#f3f3f3">
+
+<div class="lo-index">
+
+  <h1 data-screen-heading>MMB cancellation, lo-fi grayscale stimulus</h1>
+  <p>Flow 1, paid in full. Six participant screens plus one facilitator branch.
+     Everything is offline: open this file from disk with wifi off and the
+     whole package works.</p>
+
+  <h2>Participant flow</h2>
+  <nav class="lo-list">
+    <a class="lo-row is-lg" href="flow1-paid-in-full/01-trip-summary.html">
+      <span class="lo-row-main"><span class="lo-row-text">
+        <span class="lo-row-label">Flow 1, paid in full</span>
+        <span class="lo-row-meta">Start here. Trip summary, then Amend booking, then Cancel booking.</span>
+      </span></span>
+      <span class="lo-row-value">Start</span>
+    </a>
+  </nav>
+
+  <h2>Move the scenario across the fee schedule</h2>
+  <p>Today is always the participant's real date. Departure is computed as
+     today plus the days-to-departure value, so every date, day count and
+     amount on every screen recomputes together. The default is 83 days,
+     which reproduces the source design exactly.</p>
+  <nav class="lo-list">
+    <a class="lo-row" href="flow1-paid-in-full/01-trip-summary.html?dtd=83">
+      <span class="lo-row-main"><span class="lo-row-label">83 days, loss of deposit</span></span>
+      <span class="lo-row-value">Default</span>
+    </a>
+    <a class="lo-row" href="flow1-paid-in-full/01-trip-summary.html?dtd=67">
+      <span class="lo-row-main"><span class="lo-row-label">67 days, 30% of total</span></span>
+      <span class="lo-row-value">Fee starts biting</span>
+    </a>
+    <a class="lo-row" href="flow1-paid-in-full/01-trip-summary.html?dtd=40">
+      <span class="lo-row-main"><span class="lo-row-label">40 days, 70% of total</span></span>
+      <span class="lo-row-value">Most is lost</span>
+    </a>
+    <a class="lo-row" href="flow1-paid-in-full/01-trip-summary.html?dtd=10">
+      <span class="lo-row-main"><span class="lo-row-label">10 days, 100% of total</span></span>
+      <span class="lo-row-value">Refund is zero</span>
+    </a>
+  </nav>
+
+  <h2>Facilitator branches</h2>
+  <p>Linked here only. No participant screen routes to them, so a participant
+     cannot wander in, but you can show one deliberately.</p>
+  <nav class="lo-list">
+    <a class="lo-row is-lg" href="branches/cancel-failed.html">
+      <span class="lo-row-main"><span class="lo-row-text">
+        <span class="lo-row-label">Cancellation failed at commit</span>
+        <span class="lo-row-meta">Nothing changed, phone route offered. Show after step 4.</span>
+      </span></span>
+      <span class="lo-row-value">Open</span>
+    </a>
+  </nav>
+
+  <h2>Moderator notes</h2>
+  <p><span class="lo-strong">Reset</span> sits bottom right on every screen. It
+     clears session state, the days-to-departure override and the event log,
+     then returns here. Run it between participants.</p>
+  <p><span class="lo-strong">Event log.</span> Type
+     <span class="lo-strong">LOFI.events()</span> in the browser console at any
+     point to read the exact sequence fired in this session.</p>
+  <p><span class="lo-strong">Conformance.</span> Type
+     <span class="lo-strong">LOFI.audit()</span> on any screen to check computed
+     styles for chromatic colour, tap targets and screen headings.</p>
+  <p><span class="lo-strong">Inert controls.</span> The Extras and Documents
+     tabs, and the amend, edit and payment links on the trip summary, are
+     present but do nothing. They are in the stimulus because removing them
+     would change what the cancellation route competes against. Everything
+     else on the cancel path is live.</p>
+
+</div>
+
+<script src="assets/lofi.js"></script>
+</body>
+</html>
