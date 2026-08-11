@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-flow="flow2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your booking is cancelled</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+<div class="lo-frame">
+
+  <header class="lo-appbar">
+    <button class="lo-iconbtn" aria-label="Menu"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <h1>My booking</h1>
+    <button class="lo-iconbtn" aria-label="Messages, 3 unread"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.5-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.7 1.1z"/></svg></button>
+    <span class="lo-badge">3</span>
+    <button class="lo-iconbtn" aria-label="My account"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+  </header>
+
+  <section class="lo-section">
+    <div class="lo-inset lo-stack is-loose">
+
+      <div style="text-align:center">
+        <svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true" style="margin:0 auto"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+        <h1 class="lo-t-xxl" data-screen-heading style="padding-top:8px">Your booking is cancelled</h1>
+        <p class="lo-t-sm">Your booking has been updated</p>
+        <p class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></p>
+      </div>
+
+      <div class="lo-status is-success" role="status" id="refund-block" hidden>
+        <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <div>
+          <span class="lo-status-title">Your refund: <span data-mmb="refund">&pound;0.00</span></span>
+          Refund to <span data-mmb="card">Visa card ending 1083</span>, processed within 7 to 14 business days.
+        </div>
+      </div>
+
+      <div>
+        <h2 class="lo-t-md" style="padding-bottom:12px">What happens next</h2>
+        <nav class="lo-list">
+          <div class="lo-row is-lg is-static">
+            <span class="lo-row-main">
+              <span class="lo-ico-box"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.5-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.7 1.1z"/></svg></span>
+              <span class="lo-row-text">
+                <span class="lo-row-label">Confirmation email sent</span>
+                <span class="lo-row-meta" data-mmb="email">john.smith@gmail.com</span>
+              </span>
+            </span>
+          </div>
+          <div class="lo-row is-lg is-static">
+            <span class="lo-row-main">
+              <span class="lo-ico-box"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></span>
+              <span class="lo-row-text">
+                <span class="lo-row-label">Your cancellation invoice</span>
+                <span class="lo-row-meta">This will arrive within 14 days</span>
+              </span>
+            </span>
+          </div>
+        </nav>
+      </div>
+
+      <a class="lo-btn is-block" href="01-trip-summary.html" id="back">Back to my account</a>
+
+      <div class="lo-card">
+        <span class="lo-t-md">We are here to help. Give us a call</span>
+        <span class="lo-t-lg" data-mmb="contact-phone">0203 451 2688</span>
+      </div>
+      <details class="lo-disclosure">
+        <summary>Your financial protection</summary>
+        <p>All the flight-inclusive holidays on this website are financially protected by the ATOL scheme. When you pay you will be supplied with an ATOL Certificate. Please ask for it and check to ensure that everything you booked is listed on it. All non-flight package holidays on this website are financially protected under our ABTA bonding. This does not apply to other travel arrangements such as accommodation-only bookings.</p>
+      </details>
+
+    </div>
+  </section>
+
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+(function () {
+  /* Mark the booking cancelled so the hub cannot show a live booking if the
+     participant goes back to it. */
+  MMB.save({ cancelled: MMB.flow });
+
+  if (MMB.refundPence() > 0) {
+    document.getElementById('refund-block').hidden = false;
+  }
+
+  MMB.track('cancel_completed', {
+    refundPence: MMB.refundPence(),
+    chargePence: MMB.chargePence(),
+    dtd: MMB.dates.dtd()
+  });
+  document.getElementById('back').addEventListener('click', function () {
+    MMB.track('cancel_back_to_account');
+  });
+})();
+</script>
+</body>
+</html>

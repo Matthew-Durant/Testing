@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-flow="flow3">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checking your cancellation cost</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+<div class="lo-frame" aria-hidden="true">
+  <header class="lo-appbar">
+    <button class="lo-iconbtn" tabindex="-1" aria-label="Menu"><svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <h1>My booking</h1>
+  </header>
+</div>
+
+<div class="lo-dialogwrap" role="dialog" aria-modal="true" aria-labelledby="screen-title">
+  <div class="lo-dialog">
+
+    <div class="lo-dialog-head">
+      <span class="lo-dialog-label">Cancel your booking</span>
+      <a class="lo-iconbtn" href="01-trip-summary.html" aria-label="Close and keep my booking">
+        <svg class="lo-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="lo-dialog-body is-centred" role="status" aria-live="polite">
+      <div class="lo-spinner"></div>
+      <h1 class="lo-t-md" id="screen-title" data-screen-heading>Checking your cancellation cost</h1>
+      <p class="lo-t-sm">One moment while we get today's exact figure for your booking.</p>
+    </div>
+
+  </div>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+/* One routing rule for all three flows. If today's charge is larger than
+   the amount paid, the customer would owe money to cancel and no online
+   payment path exists, so the flow goes to the contact centre. Flow 3 meets
+   that condition at every position on the schedule; flows 1 and 2 meet it
+   only under a dtd override. */
+setTimeout(function () {
+  window.location.href = MMB.canCancelOnline()
+    ? '03-refund-quote.html'
+    : '03-how-to-cancel.html';
+}, 1600);
+</script>
+</body>
+</html>
