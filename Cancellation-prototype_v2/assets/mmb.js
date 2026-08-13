@@ -416,6 +416,35 @@
       });
     },
 
+    /* Countdown to departure. Shared, because the hub is rendered on two
+       screens: the participant's own hub, and the inert copy behind the
+       contact sheet on the phone route. A countdown that only ticks on one of
+       them leaves the other frozen at zero, which reads as a broken booking
+       rather than a dimmed background. Targets the 06:00 outbound rather than
+       midnight, so the day figure matches what a real booking would show. */
+    startCountdown: function () {
+      var dep = this.dates.departure();
+      var target = new Date(dep.getFullYear(), dep.getMonth(), dep.getDate(), 6, 0, 0);
+      var days = document.getElementById('cd-days');
+      if (!days) return;
+      var hours = document.getElementById('cd-hours');
+      var mins  = document.getElementById('cd-mins');
+      var secs  = document.getElementById('cd-secs');
+      function tick() {
+        var diff = Math.max(0, Math.floor((target - new Date()) / 1000));
+        var d = Math.floor(diff / 86400); diff %= 86400;
+        var h = Math.floor(diff / 3600);  diff %= 3600;
+        var m = Math.floor(diff / 60);
+        var s = diff % 60;
+        days.textContent  = String(d);
+        hours.textContent = String(h).padStart(2, '0');
+        mins.textContent  = String(m).padStart(2, '0');
+        secs.textContent  = String(s).padStart(2, '0');
+      }
+      tick();
+      setInterval(tick, 1000);
+    },
+
     /* The boundary note. One copy only: the two-variant test was dropped, so
        there is no "You don't need to decide today." variant here. The wording
        still has to stay true at the edges, which is why the top band and the

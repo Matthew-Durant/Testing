@@ -43,8 +43,8 @@
     </div>
   </section>
 
-  <section class="lo-hero" aria-hidden="true">
-    <div class="lo-hero-bg"><span class="lo-media"></span></div>
+  <section class="lo-hero is-plain" aria-hidden="true">
+    <div class="lo-hero-bg"><img src="../assets/hero.png" alt=""></div>
   </section>
 
   <section class="lo-section is-tight" id="countdown-section">
@@ -267,23 +267,7 @@
 <script src="../assets/mmb.js"></script>
 <script>
 (function () {
-  /* Countdown targets the outbound departure time, not midnight, so the day
-     figure matches what a real booking would show. */
-  var dep = MMB.dates.departure();
-  var target = new Date(dep.getFullYear(), dep.getMonth(), dep.getDate(), 6, 0, 0);
-  function tick() {
-    var diff = Math.max(0, Math.floor((target - new Date()) / 1000));
-    var d = Math.floor(diff / 86400); diff %= 86400;
-    var h = Math.floor(diff / 3600);  diff %= 3600;
-    var m = Math.floor(diff / 60);
-    var s = diff % 60;
-    document.getElementById('cd-days').textContent  = String(d);
-    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-    document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
-    document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
-  }
-  tick();
-  setInterval(tick, 1000);
+  MMB.startCountdown();
 
   /* Returning here after a completed cancellation must not show a live
      booking. A hub that still offers Cancel booking after the participant has

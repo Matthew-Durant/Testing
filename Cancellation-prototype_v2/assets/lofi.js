@@ -219,6 +219,12 @@
         a.className = 'lo-reset';
         a.href = root + 'index.html';
         a.textContent = 'Reset';
+        /* Pointer-only. The control is fully transparent, so leaving it in the
+           tab order would put a keyboard participant on an invisible link that
+           wipes the session, with no focus ring to warn them. Out of the tab
+           order and out of the accessibility tree; the moderator taps it. */
+        a.setAttribute('tabindex', '-1');
+        a.setAttribute('aria-hidden', 'true');
         a.addEventListener('click', function () { LOFI.clear(); });
         document.body.appendChild(a);
       }

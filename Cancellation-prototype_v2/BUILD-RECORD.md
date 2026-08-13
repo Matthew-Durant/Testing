@@ -9,6 +9,7 @@
 and event logging. The lo-fi skill specifies this composition: that skill's
 structure, this skill's `lofi.css` in place of its `styles.css`.
 **Supersedes:** `cancellation-lofi-prototype_v1`, which carried Flow 1 only.
+**Revised:** 13 August 2026, second pass. See section 8.
 
 ---
 
@@ -207,14 +208,14 @@ New in this round:
 
 **Test-plan requirements not built, deliberately**
 
-This round was scoped to the three flows and the index. Three section 8
-requirements are outstanding:
+This round was scoped to the three flows and the index. Two section 8
+requirements are outstanding, the third having been closed in the second pass:
 
 8. **Completion codes.** A quiet four-character code on each flow's final
    screen. Not added, because it is participant-visible copy that was not in
    scope for this build. Trivial to add once the codes are chosen.
-9. **The Reset link.** Still visible and labelled "Reset", bottom right. It
-   needs hiding or renaming before an unmoderated session.
+9. ~~**The Reset link.**~~ Resolved in the second pass: invisible, top-right,
+   pointer-only. See section 8.
 10. **Terminal success page.** The requirement says no return to the booking
     hub after cancellation. The build currently keeps the source's "Back to my
     account" button and makes the destination truthful instead. Removing the
@@ -233,8 +234,8 @@ requirements are outstanding:
     `cancel_phone_route_viewed`, `cancel_contact_opened`,
     `cancel_contact_viewed`, `cancel_contact_closed`, `cancel_call_tapped`.
     Every event now carries the flow it came from.
-12. **The hotel photograph** is a neutral block. If whether the photo makes
-    people hesitate is in scope, supply a real image; it goes in desaturated.
+12. ~~**The hotel photograph** is a neutral block.~~ Resolved in the second
+    pass: the real photograph now ships, desaturated. See section 8.
 13. **All three flows use the same hotel, resort and dates.** That is what the
     source shows, and it keeps the tasks comparable, but a participant running
     all three in sequence may read them as one booking changing rather than
@@ -285,3 +286,132 @@ the `::placeholder` pseudo-element, not placeholder copy.
 - The three hierarchy questions in section C of the lo-fi QA checklist, which
   need a colleague who has not seen the source.
 - A Figma mirror of Flows 2 and 3 alongside the Flow 1 mirror built in v1.
+
+---
+
+## 8. Second pass, 13 August 2026
+
+Three requested changes, one collision found and fixed on the way, and one
+defect found and fixed alongside.
+
+### 8.1 Hero photograph
+
+`assets/hero.png`, the supplied grayscale image, replaces the neutral block on
+all three hubs. Validation checks it and it carries **zero chroma** across every
+opaque pixel, so the neutrality claim survives the change; the
+`filter: grayscale(1)` on the hero image is kept regardless, so a future swap
+for a colour asset cannot quietly reintroduce brand read.
+
+The asset is 752 by 320 and **carries its own silhouette in its alpha channel**:
+a flat top with rounded shoulders and a broad symmetric arc across the bottom,
+matching the source design. Three conversion decisions follow from that:
+
+1. **The CSS imposes no shape of its own.** The 40px bottom radius is zeroed.
+   It happened not to clip anything at the current dimensions, but a second
+   silhouette clipping the first is a bug waiting to appear the moment the
+   asset changes, and the arc should have exactly one definition.
+2. **The hero background is transparent.** The base `.lo-hero` fill would
+   otherwise show through the cut corners as grey squares around the arc and
+   destroy it. The corners now read as whatever the page behind them is.
+3. **The gradient scrim is suppressed.** The base component carries a bottom
+   scrim so a white title can sit over the photograph. This hub has no overlaid
+   title, so the scrim would only darken the image, and the conversion rules
+   drop decorative gradients.
+
+The photograph also drives the hero's height rather than being cropped to a
+fixed one: taken out of absolute positioning, so its own aspect ratio decides
+instead of `object-fit: cover` discarding part of it. The component stays
+asset-agnostic, which is what let the asset be swapped mid-round with a CSS
+change rather than a retune. Renders 393 by 167.
+
+At 752 wide against a 393 frame the asset is a shade under 2x, so it holds up
+on a high-density phone screen. The first asset supplied was 376 wide and would
+have been upscaled; that is now resolved.
+
+### 8.2 Moderator reset, invisible and moved
+
+Fully transparent, a 44 by 44 square in the top-right corner, on every screen
+including the modal ones. `opacity` rather than `visibility` or `display`,
+because those would remove it from hit-testing and the moderator could not tap
+it either.
+
+**It is pointer-only:** `tabindex="-1"` and `aria-hidden="true"`. A transparent
+control in the tab order labelled "Reset" is a trap. A keyboard participant
+would land on it with no visible focus ring and could wipe the session
+mid-task, and the test plan requires keyboard-completable flows.
+
+**One accepted overlap.** At the 393px frame the square covers the app bar's
+account icon, which sits 16px from the edge, so a tap on that icon reaches the
+reset and sends the participant back to the moderator index. The size was
+built at 16 by 44 first, sized to the strip that overlapped nothing, and then
+changed to 44 by 44 on the research lead's decision: a finger-sized moderator
+target was judged worth the exposure, given the account icon is inert
+decoration in this stimulus and the task briefs point participants at
+cancelling rather than at account settings.
+
+The overlap cannot be engineered away without moving chrome. Lifting the real
+controls above the reset does not work: the app bar is `position: sticky` with
+its own `z-index`, so it forms a stacking context and raising its children only
+reorders them inside it. Raising the whole app bar instead buries the reset
+under an opaque full-width strip and makes it unreachable. **The only clean
+elimination is removing the account icon**, which is available as a one-line
+change whenever it is judged worth it.
+
+**Everything a participant actually uses stays clear**, verified by
+hit-testing every control on the hub, all four dialog screens, the success
+screen and the sheet: the dialog close control starts 4px below the square, and
+the sheet's own scrim sits between the reset and anything behind it. Validation
+asserts that the account icon is the **only** element on any screen that
+resolves to the reset, so the exception cannot widen unnoticed as screens
+change.
+
+### 8.3 Countdown dividers centred
+
+The rule between the units was a left border on the following unit while the
+flex `gap` sat entirely to its left, so the line hugged the unit on its right.
+The gap is removed and each unit now carries half of it as horizontal padding,
+which puts an equal 6px either side of every rule. Expressed as
+`calc(var(--lo-sp-3) / 2)` rather than a literal, so the relationship to the
+spacing token stays visible.
+
+`min-width` grows by the same 12px. The units are border-box and the widest
+label, "seconds" at 48px, would otherwise have been squeezed into a 44px
+content box. Validation asserts the widest label still fits.
+
+### 8.4 Defect found and fixed: frozen countdown behind the contact sheet
+
+The phone route renders the hub behind the contact sheet, but the countdown
+ticker only ran on the participant's own hub, so the background showed
+**0 days 00 hours 00 minutes 00 seconds**. On the one screen whose job is to
+tell a Flow 3 participant their booking is still live, the booking behind it
+read as expired. The countdown is now shared as `MMB.startCountdown()` and runs
+on both.
+
+### 8.5 Observation, not changed
+
+`LOFI.audit()` reports the hub's text links at 24 to 26px tall, including
+**"Cancel booking", the entry point under test**, and the dialog buttons at
+41px. Both are faithful to the source and to the design system's own 40px
+button floor, and both clear WCAG 2.2 AA target size (2.5.8, 24px minimum).
+They fail only the stricter 44px floor this system sets for itself. Left as
+drawn; worth a decision if target size is in scope for the accessibility
+review.
+
+### 8.6 Validation after the second pass
+
+Both audits still clean. Playwright suite extended from 539 to **619
+assertions, 0 failures, 0 console errors**, adding:
+
+- Hero image loaded, filling the frame, holding its aspect ratio, marked
+  decorative, forced to grayscale, scrim suppressed, no competing CSS radius,
+  and nothing filling behind its cut corners; plus the asset itself verified on
+  disk as RGBA, carrying a real cut-out in alpha, and chroma-free across every
+  opaque pixel.
+- Reset invisible, 44 by 44, out of the tab order, unannounced, pinned to the
+  top-right corner, and reachable on all seven screen types; plus an exhaustive
+  sweep asserting that the inert account icon is the only app-bar button,
+  dialog close, sheet close, tab, button, link or row on any of those screens
+  that resolves to the reset when tapped at its centre.
+- Countdown gap removed, equal padding either side of all three rules, widest
+  label not squeezed, and the timer actually running on both the hub and the
+  contact sheet.

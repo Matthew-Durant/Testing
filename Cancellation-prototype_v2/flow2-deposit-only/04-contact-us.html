@@ -43,8 +43,8 @@
     </div>
   </section>
 
-  <section class="lo-hero" aria-hidden="true">
-    <div class="lo-hero-bg"><span class="lo-media"></span></div>
+  <section class="lo-hero is-plain" aria-hidden="true">
+    <div class="lo-hero-bg"><img src="../assets/hero.png" alt=""></div>
   </section>
 
   <section class="lo-section is-tight" id="countdown-section">
@@ -299,6 +299,10 @@
 <script src="../assets/mmb.js"></script>
 <script>
 (function () {
+  /* The hub behind the sheet is inert, not frozen. A countdown stuck at zero
+     would read as a broken booking rather than a dimmed background. */
+  MMB.startCountdown();
+
   MMB.track('cancel_contact_viewed', {
     dtd: MMB.dates.dtd(),
     chargePence: MMB.chargePence(),

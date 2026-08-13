@@ -1088,3 +1088,94 @@ a { color: inherit; }
    greys unpredictably against the scrim, so the hub keeps its own values and
    the scrim alone does the dimming. */
 .lo-frame.is-behind-sheet { pointer-events: none; }
+
+/* ---------- 26. ROUND 1, SECOND PASS ---------------------------------------
+   Hero photograph, invisible moderator reset, centred countdown dividers.
+   -------------------------------------------------------------------------- */
+
+/* Hero, plain variant. The base .lo-hero carries a bottom gradient scrim so a
+   white title can sit over the photograph. This hub has no overlaid title, so
+   the scrim is decoration that darkens the image for no reason, and the
+   conversion rules say decorative gradients are dropped.
+
+   The asset carries its own shape in its alpha channel: a flat top with
+   rounded shoulders and a broad symmetric arc across the bottom, matching the
+   source design. So the CSS imposes no shape of its own. The 40px bottom
+   radius is zeroed, because a second, conflicting silhouette clipping the
+   first is a bug waiting to appear the moment the asset changes, and the
+   background is made transparent, because the base fill would otherwise show
+   through the corners as grey squares around the arc and destroy it. The
+   corners now read as whatever the page behind them is.
+
+   The photograph also drives the hero's height rather than being cropped to a
+   fixed one: the image is taken out of absolute positioning so its own aspect
+   ratio decides. That keeps the component asset-agnostic, so swapping the
+   image does not require retuning a hard-coded height. */
+.lo-hero.is-plain {
+  min-height: 0; padding-bottom: 0;
+  background: transparent;
+  border-radius: 0;
+}
+/* width, because .lo-hero is a centring flex column: once the background is
+   taken out of absolute positioning it becomes a flex item and shrinks to the
+   image's intrinsic width instead of filling the frame. */
+.lo-hero.is-plain .lo-hero-bg { position: static; width: 100%; }
+.lo-hero.is-plain .lo-hero-bg::after { content: none; }
+.lo-hero.is-plain .lo-hero-bg img { display: block; height: auto; }
+
+/* Moderator reset, invisible. Fully transparent and parked in the top-right
+   corner so a participant cannot see it and is unlikely to reach for it. It
+   stays 44px so a moderator can hit it deliberately, and keeps its z-index
+   above the dialog layer so it works on every screen including the modal ones.
+
+   opacity rather than visibility or display: those would remove it from the
+   hit-testing tree and the moderator could not tap it either.
+
+   It is pointer-only. lofi.js gives it tabindex="-1" and aria-hidden="true",
+   so it is out of the tab order and unannounced. An invisible control in the
+   tab order labelled "Reset" is a trap: a keyboard participant would land on
+   it with no visible focus ring and could wipe the session mid-task. */
+/* Moderator reset, invisible. Fully transparent and parked in the top-right
+   corner so a participant cannot see it and is unlikely to reach for it. It
+   keeps its z-index above the dialog layer so it works on every screen
+   including the modal ones.
+
+   opacity rather than visibility or display: those would remove it from the
+   hit-testing tree and the moderator could not tap it either.
+
+   It is pointer-only. lofi.js gives it tabindex="-1" and aria-hidden="true",
+   so it is out of the tab order and unannounced. An invisible control in the
+   tab order labelled "Reset" is a trap: a keyboard participant would land on
+   it with no visible focus ring and could wipe the session mid-task.
+
+   44 by 44 at the corner, per the research lead's decision, so the moderator
+   has a finger-sized target. One consequence, accepted knowingly and guarded
+   in validation: at the 393px frame this square overlaps the app bar's
+   account icon, which sits 16px from the edge, so a tap on that icon reaches
+   the reset. The icon is inert decoration in this stimulus. Every control a
+   participant actually uses stays clear, including the dialog close, which
+   starts 4px below the square, and validation asserts that the account icon
+   is the only overlap on any screen. Removing that icon would eliminate the
+   overlap entirely if it is ever judged worth it. */
+.lo-reset {
+  top: 0; right: 0; bottom: auto;
+  width: 44px; height: 44px;
+  padding: 0; border-radius: 0;
+  background: transparent; color: transparent;
+  opacity: 0;
+}
+.lo-reset:hover, .lo-reset:focus { opacity: 0; }
+
+/* Countdown dividers, centred in their gutter. The rule is a left border on
+   the following unit, so a flex gap sits entirely on one side of it and the
+   line hugs the unit to its right. Removing the gap and giving every unit
+   half of it as horizontal padding puts equal space either side of the line.
+
+   min-width grows by the same amount, because the units are border-box and
+   the widest label ("seconds", 48px) would otherwise be squeezed by the new
+   padding. */
+.lo-countdown { gap: 0; }
+.lo-count-unit {
+  padding: 0 calc(var(--lo-sp-3) / 2);
+  min-width: calc(56px + var(--lo-sp-3));
+}

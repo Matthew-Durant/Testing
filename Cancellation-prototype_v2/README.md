@@ -114,9 +114,10 @@ frames show.
 
 ## Omitted, and why
 
-- **The hotel photograph.** A neutral block stands in. If the study needs to
-  see whether the photo makes people hesitate, drop a real image in and give it
-  `filter: grayscale(1)`.
+- **The hotel photograph is now the real one**, desaturated, in
+  `assets/hero.png`, with the source design's arched silhouette. It was a
+  neutral block in the first build. If whether the photo makes people hesitate
+  is in scope, it is now testable.
 - **Inert controls, deliberately present.** The Extras and Documents tabs, the
   amend, edit and payment links, and the Make a payment button do nothing. They
   stay in the stimulus because removing them would change what the cancellation
@@ -128,20 +129,30 @@ frames show.
 
 ## Not built yet
 
-Three requirements from section 8 of the test plan are outstanding and need a
-decision before fielding. They are listed in BUILD-RECORD.md section 6:
-completion codes, a hidden or renamed Reset link, and whether the success
-screen is terminal.
+Two requirements from section 8 of the test plan are outstanding and need a
+decision before fielding, listed in BUILD-RECORD.md section 6: completion
+codes, and whether the success screen is terminal. The hidden Reset link, the
+third of them, is now done.
 
 ## Between participants
 
-Hit **Reset**, bottom right on every screen. It clears session state, the
-days-to-departure override, the cancelled flag and the event log, then returns
-to the index. State is `sessionStorage` only, so a fresh tab also starts clean.
+**Reset is invisible and sits in the top-right corner** of every screen,
+including the modal ones: a transparent 44 by 44 square. Tap the top-right
+corner. It clears session state, the days-to-departure override, the cancelled
+flag and the event log, then returns to the index.
+
+It is hidden so a participant cannot find it, and out of the tab order so a
+keyboard participant cannot land on it. It does sit over the account icon in
+the app bar, which is inert decoration here, so a participant who taps that
+icon will be sent back to the index. Every control they actually use stays
+clear, including the dialog close control.
 
 Reset matters more in this build than the last one: a completed cancellation
 marks that booking cancelled for the rest of the session, so the next
 participant would otherwise start on a cancelled hub.
+
+State is `sessionStorage` only, so if you cannot find the corner strip, closing
+the tab and reopening `index.html` does the same job.
 
 ## For the moderator, in the browser console
 
@@ -156,6 +167,7 @@ participant would otherwise start on a cancelled hub.
 index.html              Moderator landing, roots into all three flows
 README.md               This file
 BUILD-RECORD.md         Decisions, divergences, open questions, validation
+assets/hero.png         Hero photograph, neutral, 752 by 320, shape in alpha
 assets/lofi.css         The whole visual system, one file
 assets/lofi.js          window.LOFI: state, dialogs, reset, audit
 assets/mmb.js           window.MMB: three scenarios, dates, fee schedule, money
