@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../assets/lofi.css">
 </head>
 <body>
-<div class="lo-frame">
+<div class="lo-frame is-surface">
   <header class="lo-pagehead">
     <span class="lo-dialog-label">Cancel your booking</span>
     <a class="lo-iconbtn" href="end.html" aria-label="Close and keep my booking" id="close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
@@ -16,38 +16,41 @@
   <main class="lo-pagebody">
 
     <div class="lo-pagetitle">
-      <i aria-hidden="true"></i>
+      <svg class="lo-heroicon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38c4-6 11-9 17-9s12 3 15 9"/><path d="M28 29c0-7-1-12-4-16"/><path d="M24 13c-4-2-8-1-10 2M24 13c2-4 6-5 10-4M24 13c-1-4-4-6-7-6M24 13c4 0 7 2 8 5"/><path d="M6 42h36"/><circle class="lo-heroicon-badge" cx="12" cy="33" r="7"/><path class="lo-heroicon-x" d="M9.5 30.5l5 5M14.5 30.5l-5 5"/></svg>
       <h1 id="screen-title" data-screen-heading>Your refund if you cancel</h1>
     </div>
 
     <div class="lo-bookingref">
-      <span class="lo-t-xs">Your booking:</span>
-      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach Hotel</span>
-      <span class="lo-t-sm" data-mmb="hotel-location">Playa Blanca, Lanzarote, Canary Islands, Spain</span>
+      <span class="lo-t-sm lo-strong">Your booking:</span>
+      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach</span>
+      <span class="lo-t-sm" data-mmb="hotel-location">In Playa Blanca, Lanzarote, Canary Islands, Spain</span>
       <span class="lo-t-md" data-mmb="stay-range">Departure - return</span>
       <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
     </div>
 
-    <div class="lo-quote is-lead">
+    <div class="lo-quote is-lead" id="lead">
+      <span class="lo-quote-icon" data-route="phone"><svg class="lo-ico is-strong" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5h.01"/></svg></span>
+      <div class="lo-quote-text">
       <p class="lo-quote-head" data-route="online">Cancel today and you'll get <span data-mmb="refund">&pound;0.00</span> back</p>
       <p class="lo-quote-note" data-route="online">Cancelling today costs <span data-mmb="charge">&pound;0.00</span>, which includes your deposit and any non-refundable extras.</p>
       <p class="lo-quote-head" data-route="phone">Cancelling today will cost <span data-mmb="shortfall">&pound;0.00</span> more than you've paid</p>
       <p class="lo-quote-note" data-route="phone" id="reason">The cost of cancelling has gone up as your departure gets closer.</p>
-      <p class="lo-t-xs lo-quote-note">Quoted just now for your booking.</p>
+      <p class="lo-quote-note">Quoted just now for your booking.</p>
+      </div>
     </div>
 
-    <section class="lo-card" data-route="phone" aria-labelledby="quote-title">
+    <section class="lo-card is-onsurface" data-route="phone" aria-labelledby="quote-title">
       <h2 class="lo-card-title" id="quote-title">Today's cancellation quote</h2>
       <div class="lo-breakdown">
         <p class="lo-line"><span>Paid to date</span><span data-mmb="paid-to-date">&pound;0.00</span></p>
         <p class="lo-line"><span>Cost to cancel</span><span data-mmb="charge">&pound;0.00</span></p>
+        <p class="lo-line-note">Includes your deposit and any non-refundable extras</p>
         <p class="lo-line is-total"><span>Still to pay</span><span data-mmb="shortfall">&pound;0.00</span></p>
-        <p class="lo-line"><span>Refund</span><span data-mmb="refund">&pound;0.00</span></p>
       </div>
       <p class="lo-t-sm">You won't need to pay your outstanding balance of <span data-mmb="outstanding">&pound;0.00</span>.</p>
     </section>
 
-    <section class="lo-card" aria-labelledby="schedule-title">
+    <section class="lo-card is-onsurface" aria-labelledby="schedule-title">
       <div>
         <h2 class="lo-t-md" id="schedule-title">How a cancellation is calculated</h2>
         <p class="lo-t-sm">The cost of cancelling is a percentage of your total booking price, and it increases as departure approaches. Your deposit and anything else you've paid count towards this cost.</p>
@@ -60,30 +63,35 @@
         <span id="boundary-body">The date the cost of cancelling next increases.</span>
       </div>
 
-      <p class="lo-t-xs lo-quote-note">Quoted live by our booking system, using the cancellation schedule in your booking terms.</p>
+      <p class="lo-t-sm">Quoted live by our booking system, using the cancellation schedule in your booking terms.</p>
     </section>
 
-    <div class="lo-terms">
-      <div>
-        <h2>Cancellation explained</h2>
-        <p>Our cancellation charges are based on how many days before your booked departure we receive your cancellation notice, and are a percentage of the total cost of the booking not including your insurance premium.</p>
+    <section class="lo-terms" aria-labelledby="terms-title">
+      <h2 class="lo-t-lg" id="terms-title">Cancellation explained</h2>
+      <div class="lo-accordion">
+        <details class="lo-disclosure" open>
+          <summary>Receiving cancellation notice</summary>
+          <p>Our cancellation charges are based on how many days before your booked departure we receive your cancellation notice, and are a percentage of the total cost of the booking not including your insurance premium.</p>
+        </details>
+        <details class="lo-disclosure">
+          <summary>Changing the number of passengers</summary>
+          <p>If you want to cancel one or more passengers on the booking you'll need to call our contact centre and pay a proportion of the applicable cancellation charge for those passengers.</p>
+        </details>
+        <details class="lo-disclosure">
+          <summary>Non-refundables if you cancel</summary>
+          <p>Your deposit is non-refundable, even if the cancellation charge is lower than the deposit amount paid. Where extra facilities or transport options are non-refundable, in part or in full, the cost of these will be added to the cancellation charge you have to pay.</p>
+        </details>
+        <details class="lo-disclosure">
+          <summary>Booked with a low deposit</summary>
+          <p>If you booked using a Low Deposit Offer, the full deposit amount including free child stated on your confirmation invoice may need to be paid upon cancellation.</p>
+        </details>
       </div>
-      <div>
-        <h2>Changing the number of passengers</h2>
-        <p>If you want to cancel one or more passengers on the booking you'll need to call our contact centre and pay a proportion of the applicable cancellation charge for those passengers.</p>
-      </div>
-      <div>
-        <h2>Non-refundables if you cancel</h2>
-        <p>Your deposit is non-refundable, even if the cancellation charge is lower than the deposit amount paid. Where extra facilities or transport options are non-refundable, in part or in full, the cost of these will be added to the cancellation charge you have to pay.</p>
-      </div>
-      <p>If you booked using a Low Deposit Offer, the full deposit amount including free child stated on your confirmation invoice may need to be paid upon cancellation.</p>
-    </div>
+    </section>
 
-    <section class="lo-card is-alert" data-route="phone" aria-labelledby="alert-title">
-      <h2 class="lo-card-title" id="alert-title">Call us to cancel</h2>
-      <p class="lo-t-sm">We can't take this payment online, so you'll need to call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> and cancel your booking on the call.</p>
-      <p class="lo-t-sm">Have your booking reference ready: <span data-mmb="reference">29140653</span>.</p>
-      <p class="lo-t-sm" id="goes-up">The cost of cancelling goes up on <span data-mmb="next-date-short">the next date</span>. Call us as soon as you can.</p>
+    <section class="lo-note" data-route="phone" aria-labelledby="alert-title">
+      <h2 class="lo-note-title" id="alert-title">Call us to cancel</h2>
+      <p>We can't take this payment online, so you'll need to call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> and cancel your booking on the call.<span id="goes-up"> The cost of cancelling goes up on <span data-mmb="next-date-short">the next date</span>. Call us as soon as you can.</span></p>
+      <p class="lo-strong">Have your booking reference ready: <span data-mmb="reference">29140653</span></p>
     </section>
 
     <div class="lo-btnbar">
@@ -98,13 +106,13 @@
 <div class="lo-scrim" id="contact-sheet" hidden>
   <div class="lo-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
     <div class="lo-sheet-head">
-      <h2 id="sheet-title">Call us to cancel</h2>
+      <h2 id="sheet-title">Cancel your booking</h2>
       <button class="lo-iconbtn" type="button" data-sheet-close aria-label="Close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
-    <p class="lo-t-sm">To cancel, call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> payment on the call. Your booking reference: <span data-mmb="reference">29140653</span></p>
+    <p class="lo-t-sm">To cancel, call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> payment on the call. <span class="lo-strong">Your booking reference: <span data-mmb="reference">29140653</span></span></p>
     <button class="lo-btn is-secondary" type="button" id="call"><span>Call <span data-mmb="contact-phone">0203 451 2688</span></span></button>
     <h3 class="lo-t-md">Opening hours</h3>
-    <div class="lo-hours">
+    <div class="lo-hours is-compact">
       <div><span>Monday to Friday</span><span>9am to 7pm</span></div>
       <div><span>Saturday</span><span>9am to 5pm</span></div>
       <div><span>Sunday</span><span>10am to 5pm</span></div>

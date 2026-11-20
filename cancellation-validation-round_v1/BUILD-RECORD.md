@@ -65,10 +65,8 @@ Copy is verbatim from the draft.
    participant to continue "as if" cancelling. If they tap Cancel my booking
    they get the end-of-scenario screen. If the confirmation screen is in
    scope, it needs designing with current copy.
-4. **Call-us quote card and footer alert styling** were built from the
-   draft's layer structure and copy, not from a rendered frame: the Figma
-   connector hit its call limit before scenarios B and C could be captured.
-   Compare those two blocks against the frames.
+4. Resolved in section 7: the call-us quote card and alert are now built
+   from rendered master frames.
 5. Carried from the draft: passed-band state not in the master file; the
    scenario B reason line; interim refund timing; "Still to pay" depends on
    the front-end calculation answer.
@@ -98,3 +96,77 @@ Copy is verbatim from the draft.
   frequently asked questions link.
 - Not done: the three hierarchy questions with a colleague who has not seen
   the source, a real-device pass on iOS Safari, and a screen-reader pass.
+
+## 7. Revision, 20 November 2026: aligned to the master file
+
+**Source:** Figma `v2RW5QZqWZU2rKglfrutFj`, "Getting ready for DOR". Read:
+Flow 1 quote and confirm (`1:3245`, `1:3253`), Flow 3 phone route and contact
+modal (`1:3578`, `1:3589`). Not read: Flow 2, loading, processing, success,
+error, the tablet and desktop breakpoints, market variants, accessibility
+annotations.
+
+### Changed to match the master
+
+| Area | Before | Now |
+|---|---|---|
+| Surface | Grey canvas, 16px white cards | One white modal surface, bordered 12px cards |
+| Hero | Placeholder circle | Island-with-cross icon as a neutral line icon, rule under the title |
+| Booking block | "Flamingo Beach Hotel", "Playa Blanca, ..." | "Flamingo Beach", "In Playa Blanca, ..." |
+| Lead quote | 18px heading | Info-alert block, 16px heading, 600 message. Info icon on the owes-money variant only, as drawn |
+| Schedule labels | "30% of total" | "30% of total price" |
+| Schedule dates | Ranges, "5 Oct - 18 Oct" | Start only, "From 5 Oct". First band still "Until ..." |
+| Schedule rows | Label and range stacked on every row | Label left, date right. Rows with a state word stack the date under the label |
+| Terms | Four open paragraphs | Accordion, "Cancellation explained", first item open. New titles "Receiving cancellation notice" and "Booked with a low deposit" |
+| Owes-money quote card | Paid, Cost, Still to pay, Refund £0.00 | Paid, Cost with "Includes your deposit..." note, Still to pay. **Refund row removed** |
+| Call-us alert | Three paragraphs, reference second | One paragraph, then the reference line in bold |
+| Confirm | No back route | "Back" link under the header |
+| Confirm warning | "Important: once cancelled..." | "Once cancelled..." with a warning icon |
+| Confirm actions | Cancel, hint, Keep | Keep, Cancel, hint |
+| Contact sheet | Title "Call us to cancel" | Title "Cancel your booking", reference in bold, compact hours |
+
+### Deliberately not taken from the master
+
+1. **Brand.** Colour, typeface and the "TUI BLUE" hotel prefix stay out.
+   The warm-to-red ramp on the schedule is not reproduced: cost level stays
+   on bar length and the written percentage.
+2. **The pointer on the current band** and the corner-mounted "Today" tag.
+   The 2px border and the pill badge already do that job.
+3. **Passed bands.** Still not in the master, still needed for A and B.
+   Rendered with no fill and no border plus the word "Passed".
+4. **Band boundaries.** The master's own example puts 90% "From 22 Sept" on
+   a 21 Oct departure, which is 29 days out; the validation draft and the
+   other five rows put that boundary at 28. Treated as a one-day slip in the
+   master. This build keeps 70+, 63 to 69, 49 to 62, 29 to 48, 15 to 28,
+   0 to 14. Confirm against the booking terms.
+5. **Two copy slips in the master**, corrected here: a missing full stop in
+   "goes up on 13 Aug Call us", and the unresolved `{{Contact-center-phone}}`
+   token, shown as the number.
+6. **"Important" on the warning.** The master drops the word and relies on
+   the amber surface and icon. With no hue, the icon and the 3px rule carry
+   it visually; "Important:" is kept for screen readers only.
+
+### New open questions
+
+1. **The Refund £0.00 row is gone but the test plan still depends on it.**
+   Scenario C lists "Whether Refund £0.00 is noticed" as a watch-for, and B
+   and C pass on the participant stating "£0.00 back". Nothing on the
+   owes-money screen now states the refund. Either the row returns or the
+   criteria change. As built, a participant can only infer it.
+2. **Info icon on one lead-quote variant and not the other.** Built as
+   drawn. If unintended, it is a visible difference between A/D and B/C that
+   participants in a rotated design will meet.
+3. **Accordion hides three of the four terms by default.** Scenario D asks
+   where the £400 goes; the "Non-refundables" text that answers it is now
+   collapsed. Watch whether anyone opens it.
+4. **Back label.** The master instance shows "back" in lower case on what
+   looks like a default label. Built as "Back".
+5. **Keep above Cancel on the confirm step.** The retreat action now comes
+   first and the committal one sits last, next to its hint. Worth watching
+   for mis-taps on Keep by participants who intend to cancel.
+
+### Validation
+
+Same checks as section 6, re-run after the change: audit clean; all four
+scenarios match their figures and dates at a pinned 12 Oct 2026 session;
+back link, action order, sheet focus handling and the removed Refund row
+asserted in headless Chrome at 375px with the network offline.

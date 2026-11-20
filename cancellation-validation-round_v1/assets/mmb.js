@@ -24,8 +24,8 @@
 
   var COMMON = {
     reference: '29140653',
-    hotel: 'Flamingo Beach Hotel',
-    hotelLocation: 'Playa Blanca, Lanzarote, Canary Islands, Spain',
+    hotel: 'Flamingo Beach',
+    hotelLocation: 'In Playa Blanca, Lanzarote, Canary Islands, Spain',
     nights: 7,
     contactPhone: '0203 451 2688',
     card: 'VISA ending 1083'
@@ -76,11 +76,11 @@
      ------------------------------------------------------------------------ */
   var BANDS = [
     { pct: null, label: 'Loss of deposit', minDtd: 70, maxDtd: 3650 },
-    { pct: 30,   label: '30% of total',    minDtd: 63, maxDtd: 69   },
-    { pct: 50,   label: '50% of total',    minDtd: 49, maxDtd: 62   },
-    { pct: 70,   label: '70% of total',    minDtd: 29, maxDtd: 48   },
-    { pct: 90,   label: '90% of total',    minDtd: 15, maxDtd: 28   },
-    { pct: 100,  label: '100% of total',   minDtd:  0, maxDtd: 14   }
+    { pct: 30,   label: '30% of total price',    minDtd: 63, maxDtd: 69   },
+    { pct: 50,   label: '50% of total price',    minDtd: 49, maxDtd: 62   },
+    { pct: 70,   label: '70% of total price',    minDtd: 29, maxDtd: 48   },
+    { pct: 90,   label: '90% of total price',    minDtd: 15, maxDtd: 28   },
+    { pct: 100,  label: '100% of total price',   minDtd:  0, maxDtd: 14   }
   ];
 
   var DAYS        = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -185,13 +185,14 @@
     },
     currentBand: function () { return this.bandFor(this.dates.dtd()); },
 
-    /* The full calendar range a band occupies. Passed bands keep their whole
-       range, as in the draft, so the schedule reads as a fixed timetable. */
+    /* When a band applies, in the master file's wording: the first band
+       runs "Until" its last day, every later band runs "From" its first. */
     bandWhen: function (band) {
       var d = this.dates, dep = d.departure();
-      var end = d.addDays(dep, -band.minDtd);
-      if (band === BANDS[0]) return 'Until ' + d.fmtShort(end);
-      return d.fmtShort(d.addDays(dep, -band.maxDtd)) + ' - ' + d.fmtShort(end);
+      if (band === BANDS[0]) {
+        return 'Until ' + d.fmtShort(d.addDays(dep, -band.minDtd));
+      }
+      return 'From ' + d.fmtShort(d.addDays(dep, -band.maxDtd));
     },
 
     nextBand: function () {
@@ -285,23 +286,29 @@
         row.className = 'lo-band' + (isNow ? ' is-selected' : '')
           + (isPassed ? ' is-passed' : '');
 
-        var label = document.createElement('span');
-        label.className = 'lo-band-label';
         var pct = document.createElement('span');
         pct.className = 'lo-band-pct';
         pct.textContent = band.label;
         var when = document.createElement('span');
         when.className = 'lo-band-dates';
         when.textContent = self.bandWhen(band);
-        label.appendChild(pct);
-        label.appendChild(when);
-        row.appendChild(label);
 
+        /* Master layout: label left, date right. A row that carries a state
+           word gives the right-hand slot to that word and stacks its date
+           under the label, as the master does for the current band. */
         if (isNow || isPassed) {
+          var label = document.createElement('span');
+          label.className = 'lo-band-label';
+          label.appendChild(pct);
+          label.appendChild(when);
+          row.appendChild(label);
           var flag = document.createElement('span');
           flag.className = 'lo-band-flag';
           flag.textContent = isNow ? 'Today' : 'Passed';
           row.appendChild(flag);
+        } else {
+          row.appendChild(pct);
+          row.appendChild(when);
         }
 
         var track = document.createElement('span');

@@ -7,6 +7,11 @@ release (TRR-6900).
 Source: Figma `MMB Cancellation Flow (UK&I) TRR-6900`, page
 "Validation round · Mobile", node `424:1356`.
 
+Revised 20 Nov 2026 to follow the component set in the master file copy
+"Getting ready for DOR" (Figma `v2RW5QZqWZU2rKglfrutFj`). Scenarios, amounts
+and tasks are unchanged; layout and some copy changed. See BUILD-RECORD.md
+section 7.
+
 ## Launch
 
 Open `index.html`. It is the researcher page: it holds the participant link,
