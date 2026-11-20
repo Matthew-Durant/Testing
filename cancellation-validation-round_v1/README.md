@@ -67,11 +67,10 @@ Both last for the tab session only (`sessionStorage`).
 
 ## Unmoderated differences from the Round 1 package
 
-- **Invisible reset, top right of every participant screen.** A transparent
-  44 by 44 square at the very top of the screen. It clears the session and
-  returns to the first screen of that scenario, never to the index. It
-  scrolls with the screen, so scroll to the top to use it. It is out of the
-  tab order and hidden from screen readers.
+- **Invisible reset, far top right of the viewport on every participant
+  screen.** A transparent 44 by 44 square, fixed in that corner as the page
+  scrolls. It clears the session and returns to the moderator index. It is
+  out of the tab order and hidden from screen readers.
 - No trip summary hub: each scenario opens on the quote, as in the draft.
 - Events are logged to `sessionStorage` only (`LOFI.events()` in the console).
   They are not sent anywhere, so they cannot be collected from a remote

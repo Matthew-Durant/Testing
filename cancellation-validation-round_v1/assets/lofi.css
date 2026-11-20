@@ -1430,9 +1430,8 @@ body:has(.lo-scrim:not([hidden])) { overflow: hidden; }
   padding-bottom: var(--lo-sp-10);
 }
 
-/* Reset inside the frame: top right of the screen, scrolls with it. Still
-   fully transparent, pointer-only and out of the tab order (see section 26). */
-.lo-frame > .lo-reset { position: absolute; }
+/* Reset is fixed to the far top right of the viewport on every screen (see
+   section 26) and returns to the moderator index. */
 
 /* Success lead: filled tick, title, two supporting lines, all centred */
 .lo-successlead {
