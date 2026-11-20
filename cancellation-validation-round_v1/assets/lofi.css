@@ -1312,3 +1312,103 @@ body:has(.lo-scrim:not([hidden])) { overflow: hidden; }
 .lo-index-table th { text-align: left; }
 .lo-index .lo-status { margin: var(--lo-sp-4) 0; }
 .lo-index .lo-btn { min-height: var(--lo-row); margin-top: var(--lo-sp-2); }
+
+/* ---------- 28. MASTER FILE ALIGNMENT ("Getting ready for DOR") -------------
+   The validation screens now follow the component set in the master file:
+   one white modal surface, bordered cards on it, an info-alert lead quote,
+   label-left / date-right schedule rows, an accordion for the terms, a back
+   link on the confirm step. Existing tokens only. The master's 8px card and
+   4px alert radii snap to this system's 12 > 8 descent.
+   -------------------------------------------------------------------------- */
+
+.lo-frame.is-surface { background: var(--lo-surface); }
+.lo-frame.is-surface .lo-pagehead { border-bottom: 2px solid var(--lo-line-200); }
+.lo-frame.is-surface .lo-pagebody { padding-top: var(--lo-sp-4); }
+
+/* Hero lock-up: the master's island-with-cross icon, redrawn as a neutral
+   1.5px line icon. The cross badge is the one filled mark, as in the source. */
+.lo-heroicon {
+  width: 48px; height: 48px; flex: 0 0 auto;
+  fill: none; stroke: var(--lo-ink-900); stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.lo-heroicon-badge { fill: var(--lo-ink-900); stroke: var(--lo-surface); stroke-width: 2; }
+.lo-heroicon-x { stroke: var(--lo-inverse); }
+.lo-pagetitle {
+  gap: var(--lo-sp-2);
+  padding-bottom: var(--lo-sp-4);
+  border-bottom: 1px solid var(--lo-line-200);
+}
+
+/* Cards sitting on the white surface: border does the enclosing, 12px radius,
+   16px titles, and anything nested inside steps down to 8px. */
+.lo-card.is-onsurface { border-radius: var(--lo-r-md); gap: var(--lo-sp-3); }
+.lo-card.is-onsurface .lo-card-title { font-size: var(--lo-fs-md); }
+.lo-card.is-onsurface .lo-note,
+.lo-card.is-onsurface .lo-ack { border-radius: var(--lo-r-sm); }
+
+/* Lead quote as the master's info alert: filled block, 16px bold heading,
+   14px 600 message, optional leading icon. In the master a tinted surface
+   says "information"; here the enclosure, position and weight say "read this
+   first", and the icon, where the master draws one, is kept. */
+.lo-quote.is-lead {
+  flex-direction: row; align-items: flex-start; gap: var(--lo-sp-3);
+  border-radius: var(--lo-r-md);
+  padding: var(--lo-sp-3) var(--lo-sp-4);
+}
+.lo-quote-text { display: flex; flex-direction: column; gap: var(--lo-sp-2);
+  min-width: 0; flex: 1 1 auto; }
+.lo-quote.is-lead .lo-quote-head { font-size: var(--lo-fs-md); }
+.lo-quote.is-lead .lo-quote-note { font-weight: var(--lo-fw-label);
+  color: var(--lo-ink-900); }
+.lo-quote-icon { display: inline-flex; flex: 0 0 auto; }
+
+/* Schedule rows, master layout. Unflagged rows: label left, date right. */
+.lo-bands { gap: var(--lo-sp-1); }
+.lo-band { padding: var(--lo-sp-2) var(--lo-sp-4) var(--lo-sp-3);
+  background: var(--lo-canvas); border-color: transparent; }
+.lo-band.is-selected { background: var(--lo-surface); border-color: var(--lo-ink-900); }
+/* Passed rows lose both fill and border, so the filled rows read as the
+   live schedule and the passed ones as history. */
+.lo-band.is-passed { background: var(--lo-surface); border-color: transparent; }
+.lo-band-dates { font-size: var(--lo-fs-sm); font-weight: var(--lo-fw-label);
+  color: var(--lo-ink-900); white-space: nowrap; }
+.lo-band.is-passed .lo-band-dates { color: var(--lo-ink-700);
+  font-weight: var(--lo-fw-body); }
+.lo-band-flag { font-size: var(--lo-fs-sm); }
+.lo-band-track { height: 4px; background: var(--lo-fill-200); }
+.lo-band.is-selected .lo-band-track { background: var(--lo-fill-100); }
+
+/* Notes: paragraphs inside, and an icon variant for the warning */
+.lo-note { gap: var(--lo-sp-2); color: var(--lo-ink-900); }
+.lo-note.has-icon { flex-direction: row; gap: var(--lo-sp-3); align-items: flex-start; }
+.lo-note.has-icon > div { display: flex; flex-direction: column; gap: var(--lo-sp-1); }
+
+/* Terms accordion */
+.lo-terms { gap: var(--lo-sp-4); }
+.lo-terms h2.lo-t-lg { font-size: var(--lo-fs-lg); }
+.lo-accordion { display: flex; flex-direction: column; gap: var(--lo-sp-1); }
+.lo-accordion .lo-disclosure { border-radius: var(--lo-r-sm); padding: 0 var(--lo-sp-3); }
+.lo-accordion .lo-disclosure > summary { font-size: var(--lo-fs-md);
+  font-weight: var(--lo-fw-head); }
+.lo-accordion .lo-disclosure > summary::after { content: ""; width: 8px; height: 8px;
+  border-right: 2px solid var(--lo-ink-900); border-bottom: 2px solid var(--lo-ink-900);
+  transform: rotate(45deg); margin-right: var(--lo-sp-1); }
+.lo-accordion .lo-disclosure[open] > summary::after { content: "";
+  transform: rotate(-135deg); }
+
+/* Back link on the confirm step: chevron plus underlined label, 44px target */
+.lo-backlink {
+  display: inline-flex; align-items: center; gap: var(--lo-sp-1);
+  align-self: flex-start; min-height: var(--lo-row);
+  margin: calc(var(--lo-sp-3) * -1) 0 calc(var(--lo-sp-2) * -1);
+  font-size: var(--lo-fs-md); color: var(--lo-ink-900);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* Opening hours in the contact sheet: compact ruled rows, regular weight */
+.lo-hours.is-compact > div { min-height: 0; padding: var(--lo-sp-2) 0; }
+.lo-hours.is-compact > div:first-child { border-top: 1px solid var(--lo-line-100); }
+.lo-hours.is-compact > div:last-child { border-bottom: 1px solid var(--lo-line-100); }
+.lo-hours.is-compact > div > span:last-child { font-weight: var(--lo-fw-body);
+  color: var(--lo-ink-700); }

@@ -8,27 +8,29 @@
 <link rel="stylesheet" href="../assets/lofi.css">
 </head>
 <body>
-<div class="lo-frame">
+<div class="lo-frame is-surface">
   <header class="lo-pagehead">
     <span class="lo-dialog-label">Cancel your booking</span>
     <a class="lo-iconbtn" href="end.html" aria-label="Close and keep my booking" id="close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
   </header>
   <main class="lo-pagebody">
 
+    <a class="lo-backlink" href="01-quote.html" id="back"><svg class="lo-ico is-16 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Back</span></a>
+
     <div class="lo-pagetitle">
-      <i aria-hidden="true"></i>
+      <svg class="lo-heroicon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38c4-6 11-9 17-9s12 3 15 9"/><path d="M28 29c0-7-1-12-4-16"/><path d="M24 13c-4-2-8-1-10 2M24 13c2-4 6-5 10-4M24 13c-1-4-4-6-7-6M24 13c4 0 7 2 8 5"/><path d="M6 42h36"/><circle class="lo-heroicon-badge" cx="12" cy="33" r="7"/><path class="lo-heroicon-x" d="M9.5 30.5l5 5M14.5 30.5l-5 5"/></svg>
       <h1 id="screen-title" data-screen-heading>Confirm your cancellation</h1>
     </div>
 
     <div class="lo-bookingref">
-      <span class="lo-t-xs">Your booking:</span>
-      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach Hotel</span>
-      <span class="lo-t-sm" data-mmb="hotel-location">Playa Blanca, Lanzarote, Canary Islands, Spain</span>
+      <span class="lo-t-sm lo-strong">Your booking:</span>
+      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach</span>
+      <span class="lo-t-sm" data-mmb="hotel-location">In Playa Blanca, Lanzarote, Canary Islands, Spain</span>
       <span class="lo-t-md" data-mmb="stay-range">Departure - return</span>
       <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
     </div>
 
-    <section class="lo-card" aria-labelledby="quote-title">
+    <section class="lo-card is-onsurface" aria-labelledby="quote-title">
       <h2 class="lo-card-title" id="quote-title">Today's cancellation quote</h2>
       <div class="lo-breakdown">
         <p class="lo-line"><span>Paid to date</span><span data-mmb="paid-to-date">&pound;0.00</span></p>
@@ -39,13 +41,16 @@
       <p class="lo-t-sm" id="refund-dest" hidden>Refund to: <span data-mmb="card">VISA ending 1083</span> processed within 7-14 business days.</p>
     </section>
 
-    <section class="lo-card" aria-labelledby="before-title">
+    <section class="lo-card is-onsurface" aria-labelledby="before-title">
       <h2 class="lo-card-title" id="before-title">Before you cancel</h2>
       <p class="lo-t-sm">Looking to change your dates or hotel? You can amend your booking. Do this online or by calling our team on <span data-mmb="contact-phone">0203 451 2688</span>.</p>
 
-      <div class="lo-note is-warning" role="note">
-        <span class="lo-note-title">Important: once cancelled, this action cannot be undone</span>
-        <span>Any extras booked separately (excursions, transfers, parking) must be cancelled independently.</span>
+      <div class="lo-note is-warning has-icon" role="note">
+        <svg class="lo-ico is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+        <div>
+          <span class="lo-note-title"><span class="lo-sr">Important: </span>Once cancelled, this action cannot be undone</span>
+          <span>Any extras booked separately (excursions, transfers, parking) must be cancelled independently.</span>
+        </div>
       </div>
 
       <label class="lo-ack" for="ack">
@@ -54,9 +59,9 @@
       </label>
 
       <div class="lo-btnbar">
+        <a class="lo-btn is-secondary is-block" href="end.html" id="keep">Keep my booking</a>
         <button class="lo-btn is-block is-disabled" type="button" id="commit" disabled aria-describedby="commit-hint">Cancel my booking</button>
         <p class="lo-btnhint" id="commit-hint">Tick the checkbox above to enable this button</p>
-        <a class="lo-btn is-secondary is-block" href="end.html" id="keep">Keep my booking</a>
       </div>
     </section>
 
@@ -101,6 +106,9 @@
   });
   document.getElementById('close').addEventListener('click', function () {
     MMB.track('cancel_confirm_keep', { via: 'close' });
+  });
+  document.getElementById('back').addEventListener('click', function () {
+    MMB.track('cancel_confirm_back');
   });
 })();
 </script>
