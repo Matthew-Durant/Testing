@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-flow="b" data-unmoderated>
+<html lang="en" data-flow="b" data-unmoderated data-reset="01-quote.html">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -43,7 +43,7 @@
 
     <section class="lo-card is-onsurface" aria-labelledby="before-title">
       <h2 class="lo-card-title" id="before-title">Before you cancel</h2>
-      <p class="lo-t-sm">Looking to change your dates or hotel? You can amend your booking. Do this online or by calling our team on <span data-mmb="contact-phone">0203 451 2688</span>.</p>
+      <p class="lo-t-sm" id="amend-line">Looking to change your dates or hotel? You can amend your booking. Do this online or by calling our team on <span data-mmb="contact-phone">0203 451 2688</span>.</p>
 
       <div class="lo-note is-warning has-icon" role="note">
         <svg class="lo-ico is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
@@ -85,6 +85,11 @@
   /* A refund destination on a zero refund would promise a payment that is
      never made. */
   if (MMB.refundPence() > 0) document.getElementById('refund-dest').hidden = false;
+
+  /* Within 70 days of departure a later travel date is charged as a
+     cancellation, so "change your dates or hotel" would offer a way out that
+     costs the same as cancelling. Only show it from 70 days out. */
+  if (MMB.dates.dtd() < 70) document.getElementById('amend-line').hidden = true;
 
   var ack  = document.getElementById('ack');
   var btn  = document.getElementById('commit');
