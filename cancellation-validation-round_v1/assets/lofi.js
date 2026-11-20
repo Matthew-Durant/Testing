@@ -214,14 +214,15 @@
       var link = document.querySelector('link[rel="stylesheet"][href*="lofi.css"]');
       var root = link ? link.getAttribute('href').replace(/assets\/lofi\.css$/, '') : '';
 
-      /* Unmoderated packages set data-unmoderated on <html>. There is no
-         moderator to tap an invisible Reset, and on these screens the corner
-         it occupies belongs to the close control, so it is not created. */
-      if (!document.documentElement.hasAttribute('data-unmoderated')
-          && !document.querySelector('.lo-reset')) {
+      /* data-reset on <html> names where Reset lands. Unmoderated screens
+         point it at the start of their own scenario, never at the researcher
+         index, so a participant who hits it by accident restarts the task
+         rather than landing on the briefs and pass criteria. */
+      var resetTo = document.documentElement.getAttribute('data-reset');
+      if (!document.querySelector('.lo-reset')) {
         var a = document.createElement('a');
         a.className = 'lo-reset';
-        a.href = root + 'index.html';
+        a.href = resetTo || (root + 'index.html');
         a.textContent = 'Reset';
         /* Pointer-only. The control is fully transparent, so leaving it in the
            tab order would put a keyboard participant on an invisible link that
@@ -230,7 +231,11 @@
         a.setAttribute('tabindex', '-1');
         a.setAttribute('aria-hidden', 'true');
         a.addEventListener('click', function () { LOFI.clear(); });
-        document.body.appendChild(a);
+        /* In the frame, not on the body, when a target is named: the control
+           then sits at the top right of the screen itself and scrolls away
+           with it, instead of floating over whatever scrolls underneath. */
+        var host = resetTo ? document.querySelector('.lo-frame') : null;
+        (host || document.body).appendChild(a);
       }
 
       this.bindSwitches();

@@ -36,6 +36,7 @@ scenario-a/ .. scenario-d/
   01-quote.html            Quote and schedule. Online or call-us layout, by the routing rule.
                            Call-us layout carries the contact sheet (bottom sheet, same page).
   02-confirm.html          Breakdown, warning, acknowledgement gate, commit. Online route only.
+  03-cancelled.html        Success: booking cancelled, refund, what happens next. Online route only.
   end.html                 Neutral end-of-scenario screen.
 ```
 
@@ -58,15 +59,19 @@ Both last for the tab session only (`sessionStorage`).
 ## Simulated
 
 - Amounts are computed in the browser from the schedule in `assets/mmb.js`.
-- Cancel my booking, Keep my booking and the close control all go to the
-  end-of-scenario screen. Nothing is cancelled and no email is sent.
+- Cancel my booking goes to the success screen. Nothing is cancelled and no
+  email is sent. Back to my account, Keep my booking and the close control
+  go to the end-of-scenario screen.
 - The Call button places no call; it shows "Calls are switched off in this
   test". The frequently asked questions link is inert.
 
 ## Unmoderated differences from the Round 1 package
 
-- No hidden Reset control on participant screens (`data-unmoderated` on
-  `<html>`). The corner it used belongs to the close control here.
+- **Invisible reset, top right of every participant screen.** A transparent
+  44 by 44 square at the very top of the screen. It clears the session and
+  returns to the first screen of that scenario, never to the index. It
+  scrolls with the screen, so scroll to the top to use it. It is out of the
+  tab order and hidden from screen readers.
 - No trip summary hub: each scenario opens on the quote, as in the draft.
 - Events are logged to `sessionStorage` only (`LOFI.events()` in the console).
   They are not sent anywhere, so they cannot be collected from a remote
@@ -81,5 +86,5 @@ BUILD-RECORD.md     Decisions, divergences, open questions, validation
 assets/lofi.css     The visual system, one file (section 27 is new for this round)
 assets/lofi.js      window.LOFI: state, sheet, toast, audit
 assets/mmb.js       window.MMB: four scenarios, dates, schedule, money
-scenario-a/ .. -d/  Three screens each
+scenario-a/ .. -d/  Four screens each
 ```

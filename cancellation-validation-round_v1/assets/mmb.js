@@ -28,7 +28,8 @@
     hotelLocation: 'In Playa Blanca, Lanzarote, Canary Islands, Spain',
     nights: 7,
     contactPhone: '0203 451 2688',
-    card: 'VISA ending 1083'
+    card: 'VISA ending 1083',
+    email: 'j.smith@gmail.com'
   };
 
   /* Money is integer pence throughout and formatted only at render. */
@@ -251,6 +252,7 @@
         'reference':      SCENARIO.reference,
         'contact-phone':  SCENARIO.contactPhone,
         'card':           SCENARIO.card,
+        'email':          SCENARIO.email,
         'stay-range':     d.fmtDay(d.departure()) + ' - ' + d.fmtDay(d.returnDate()),
         'paid-to-date':   this.money(SCENARIO.paidToDatePence),
         'outstanding':    this.money(this.outstandingPence()),
