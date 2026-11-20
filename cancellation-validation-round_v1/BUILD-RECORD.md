@@ -211,3 +211,20 @@ first screen.
 **Validation.** Audit clean. Headless Chrome, 375px, offline: success copy
 and refund figures for A and D, reset geometry and target on every screen,
 reset clears state from the success screen, close control still navigates.
+
+## 9. Revision, 20 November 2026: reset returns to the moderator index
+
+Supersedes the reset behaviour in section 8. The reset is now fixed to the
+far top right of the viewport on every participant screen and returns to
+`index.html`, so the moderator can reset while testing. It is still
+transparent, 44 by 44, pointer-only and out of the tab order.
+
+Two consequences, accepted with the change:
+
+- A participant who taps that corner lands on the moderator index, which
+  carries the briefs and pass criteria. For unmoderated sessions, check
+  recordings for this before scoring a scenario.
+- It stays in the corner while the page scrolls, so the right-hand 44px of
+  anything scrolled up to the top edge is covered. With the screen at the
+  top it does not overlap the close control; validation asserts that at rest
+  and with the page scrolled.
