@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-flow="d" data-unmoderated data-reset="01-quote.html">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Your booking is cancelled</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+<div class="lo-frame is-surface">
+  <main class="lo-pagebody">
+
+    <div class="lo-successlead">
+      <svg class="lo-successicon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><path d="M14 25l7 7 13-15"/></svg>
+      <h1 data-screen-heading>Your booking is cancelled</h1>
+      <p class="lo-t-sm">Your booking has been updated</p>
+      <p class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></p>
+    </div>
+
+    <div class="lo-note" id="refund-note" role="status" hidden>
+      <span class="lo-note-title">Your refund: <span data-mmb="refund">&pound;0.00</span></span>
+      <span class="lo-strong">Refund to: <span data-mmb="card">VISA ending 1083</span> processed within 7-14 business days.</span>
+    </div>
+
+    <section class="lo-stack" aria-labelledby="next-title">
+      <h2 class="lo-t-md lo-strong" id="next-title">What happens next</h2>
+      <div class="lo-nextitem">
+        <svg class="lo-ico is-16 is-strong" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        <div>
+          <span class="lo-t-sm lo-strong">Confirmation email sent</span>
+          <span class="lo-t-sm" data-mmb="email">j.smith@gmail.com</span>
+        </div>
+      </div>
+    </section>
+
+    <a class="lo-btn is-block" href="end.html" id="account">Back to my account</a>
+
+  </main>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+(function () {
+  /* Only reachable when the cost is covered by what has been paid. */
+  if (!MMB.canCancelOnline()) { window.location.replace('01-quote.html'); return; }
+  /* A refund block on a zero refund would promise a payment never made. */
+  if (MMB.refundPence() > 0) document.getElementById('refund-note').hidden = false;
+  MMB.track('cancel_success_viewed', { refundPence: MMB.refundPence() });
+  document.getElementById('account').addEventListener('click', function () {
+    MMB.track('cancel_success_account');
+  });
+})();
+</script>
+</body>
+</html>

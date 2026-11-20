@@ -1412,3 +1412,43 @@ body:has(.lo-scrim:not([hidden])) { overflow: hidden; }
 .lo-hours.is-compact > div:last-child { border-bottom: 1px solid var(--lo-line-100); }
 .lo-hours.is-compact > div > span:last-child { font-weight: var(--lo-fw-body);
   color: var(--lo-ink-700); }
+
+/* ---------- 29. SUCCESS SCREEN AND IN-FLOW RESET ---------------------------- */
+
+/* Modal presentation, as in the master: the dialog starts 40px down with the
+   scrim showing above it and 16px top corners. That strip is also what makes
+   room for the invisible reset: the 44px square sits in the top right corner
+   and the close control starts below it, so the two never overlap. */
+.lo-frame.is-modal {
+  display: flex; flex-direction: column;
+  background: var(--lo-ink-600);
+  padding: var(--lo-sp-10) 0 0;
+}
+.lo-frame.is-modal .lo-pagehead { border-radius: var(--lo-r-lg) var(--lo-r-lg) 0 0; }
+.lo-frame.is-modal .lo-pagebody {
+  flex: 1 1 auto; background: var(--lo-surface);
+  padding-bottom: var(--lo-sp-10);
+}
+
+/* Reset inside the frame: top right of the screen, scrolls with it. Still
+   fully transparent, pointer-only and out of the tab order (see section 26). */
+.lo-frame > .lo-reset { position: absolute; }
+
+/* Success lead: filled tick, title, two supporting lines, all centred */
+.lo-successlead {
+  display: flex; flex-direction: column; align-items: center; gap: var(--lo-sp-1);
+  text-align: center;
+}
+.lo-successlead h1 {
+  font-size: var(--lo-fs-xxl); font-weight: var(--lo-fw-head);
+  color: var(--lo-ink-900);
+}
+.lo-successicon { width: 48px; height: 48px; margin: var(--lo-sp-4) 0; flex: 0 0 auto; }
+.lo-successicon circle { fill: var(--lo-ink-900); }
+.lo-successicon path { fill: none; stroke: var(--lo-inverse); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round; }
+
+/* What happens next: icon plus a two-line item */
+.lo-nextitem { display: flex; gap: var(--lo-sp-3); align-items: flex-start; }
+.lo-nextitem .lo-ico { margin-top: 2px; }
+.lo-nextitem > div { display: flex; flex-direction: column; gap: 2px; }

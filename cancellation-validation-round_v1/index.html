@@ -254,10 +254,18 @@
   <h2>Simulated in this build</h2>
   <ul class="lo-index-list">
     <li>Amounts are computed in the browser from the schedule in assets/mmb.js, not quoted by a booking system.</li>
-    <li>"Cancel my booking", "Keep my booking" and the close control all lead to a neutral end-of-scenario screen. The draft has no success screen for this round, so none was invented.</li>
+    <li>"Cancel my booking" leads to the success screen from the master file ("Your booking is cancelled"). Nothing is cancelled and no email is sent. "Back to my account", "Keep my booking" and the close control lead to a neutral end-of-scenario screen.</li>
     <li>The Call button places no call. It shows a short "Calls are switched off in this test" message so an unmoderated participant is not left tapping a dead button.</li>
     <li>The frequently asked questions link is inert.</li>
   </ul>
+
+  <h2>Reset during a session</h2>
+  <p>Every participant screen has an invisible reset in its top right corner:
+     a transparent 44 by 44 square, at the very top of the screen. Tapping it
+     clears the session and returns to the first screen of that scenario. It
+     scrolls with the screen, so scroll to the top first. It never leads back
+     to this page. A reset also clears a pinned date or a days-to-departure
+     override, so reopen the check link if you were using one.</p>
 
   <h2>Move a scenario along the schedule</h2>
   <p>Add <span class="lo-strong">?dtd=N</span> to a participant link to set

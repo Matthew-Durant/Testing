@@ -170,3 +170,44 @@ Same checks as section 6, re-run after the change: audit clean; all four
 scenarios match their figures and dates at a pinned 12 Oct 2026 session;
 back link, action order, sheet focus handling and the removed Refund row
 asserted in headless Chrome at 375px with the network offline.
+
+## 8. Revision, 20 November 2026: success screen and in-flow reset
+
+**Success screen.** `03-cancelled.html` in every scenario folder, from the
+master file's Flow 1 success frame (`1:3322`): filled tick, "Your booking is
+cancelled", "Your booking has been updated", the reference, a refund block
+("Your refund: £X", destination and the interim 7-14 business days line),
+"What happens next" with "Confirmation email sent" and the address, and
+"Back to my account". Cancel my booking now leads here; Back to my account
+leads to the end-of-scenario screen. This closes open question 4.3.
+
+- The site header and footer around the master's success page are not built:
+  both are brand furniture and neither is under test.
+- The refund block is hidden when the refund is zero. The master's Flow 2
+  success frame was not read, so the zero-refund wording is not built. It is
+  only reachable with a `?dtd` override.
+- The master's Processing step between confirm and success is not built.
+- In the master the refund block is a green success alert. Here the filled
+  tick and the word "cancelled" in the title carry success; the block is a
+  neutral filled note.
+
+**Reset.** An invisible 44 by 44 control in the top right corner of every
+participant screen. It clears session state and returns to that scenario's
+first screen.
+
+- The quote and confirm screens now open as the master draws them, 40px down
+  with the scrim above and rounded top corners. That strip is what keeps the
+  reset clear of the close control: validation asserts the two do not overlap
+  and that the close control still works.
+- It returns to the scenario start rather than the researcher index, because
+  the sessions are unmoderated and an accidental tap must not show a
+  participant the briefs and pass criteria.
+- It sits in the screen, not fixed to the viewport, so it cannot float over a
+  button that has scrolled underneath it. The cost is that it is only
+  reachable with the screen scrolled to the top.
+- Residual risk: on the success and end screens nothing else occupies that
+  corner, so a stray tap there restarts the scenario.
+
+**Validation.** Audit clean. Headless Chrome, 375px, offline: success copy
+and refund figures for A and D, reset geometry and target on every screen,
+reset clears state from the success screen, close control still navigates.
