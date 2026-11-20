@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-flow="d" data-unmoderated>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Confirm your cancellation</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+<div class="lo-frame">
+  <header class="lo-pagehead">
+    <span class="lo-dialog-label">Cancel your booking</span>
+    <a class="lo-iconbtn" href="end.html" aria-label="Close and keep my booking" id="close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
+  </header>
+  <main class="lo-pagebody">
+
+    <div class="lo-pagetitle">
+      <i aria-hidden="true"></i>
+      <h1 id="screen-title" data-screen-heading>Confirm your cancellation</h1>
+    </div>
+
+    <div class="lo-bookingref">
+      <span class="lo-t-xs">Your booking:</span>
+      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach Hotel</span>
+      <span class="lo-t-sm" data-mmb="hotel-location">Playa Blanca, Lanzarote, Canary Islands, Spain</span>
+      <span class="lo-t-md" data-mmb="stay-range">Departure - return</span>
+      <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
+    </div>
+
+    <section class="lo-card" aria-labelledby="quote-title">
+      <h2 class="lo-card-title" id="quote-title">Today's cancellation quote</h2>
+      <div class="lo-breakdown">
+        <p class="lo-line"><span>Paid to date</span><span data-mmb="paid-to-date">&pound;0.00</span></p>
+        <p class="lo-line"><span>Cost to cancel</span><span data-mmb="charge-minus">&minus;&pound;0.00</span></p>
+        <p class="lo-line-note">Includes your deposit and any non-refundable extras</p>
+        <p class="lo-line is-total"><span>Refund</span><span data-mmb="refund">&pound;0.00</span></p>
+      </div>
+      <p class="lo-t-sm" id="refund-dest" hidden>Refund to: <span data-mmb="card">VISA ending 1083</span> processed within 7-14 business days.</p>
+    </section>
+
+    <section class="lo-card" aria-labelledby="before-title">
+      <h2 class="lo-card-title" id="before-title">Before you cancel</h2>
+      <p class="lo-t-sm">Looking to change your dates or hotel? You can amend your booking. Do this online or by calling our team on <span data-mmb="contact-phone">0203 451 2688</span>.</p>
+
+      <div class="lo-note is-warning" role="note">
+        <span class="lo-note-title">Important: once cancelled, this action cannot be undone</span>
+        <span>Any extras booked separately (excursions, transfers, parking) must be cancelled independently.</span>
+      </div>
+
+      <label class="lo-ack" for="ack">
+        <input type="checkbox" id="ack">
+        <span>I understand cancelling today costs <span data-mmb="charge">&pound;0.00</span>, I'll receive <span data-mmb="refund">&pound;0.00</span> back, and this cannot be undone</span>
+      </label>
+
+      <div class="lo-btnbar">
+        <button class="lo-btn is-block is-disabled" type="button" id="commit" disabled aria-describedby="commit-hint">Cancel my booking</button>
+        <p class="lo-btnhint" id="commit-hint">Tick the checkbox above to enable this button</p>
+        <a class="lo-btn is-secondary is-block" href="end.html" id="keep">Keep my booking</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+(function () {
+  /* This step only exists when the cost is covered by what has been paid.
+     Under an override that breaks that, go back to the screen that is true. */
+  if (!MMB.canCancelOnline()) { window.location.replace('01-quote.html'); return; }
+
+  MMB.track('cancel_confirm_viewed', {
+    dtd: MMB.dates.dtd(),
+    chargePence: MMB.chargePence(),
+    refundPence: MMB.refundPence()
+  });
+
+  /* A refund destination on a zero refund would promise a payment that is
+     never made. */
+  if (MMB.refundPence() > 0) document.getElementById('refund-dest').hidden = false;
+
+  var ack  = document.getElementById('ack');
+  var btn  = document.getElementById('commit');
+  var hint = document.getElementById('commit-hint');
+
+  ack.addEventListener('change', function () {
+    btn.disabled = !ack.checked;
+    btn.classList.toggle('is-disabled', !ack.checked);
+    hint.hidden = ack.checked;
+    if (ack.checked) MMB.track('cancel_ack_ticked');
+  });
+  btn.addEventListener('click', function () {
+    if (btn.disabled) return;
+    MMB.track('cancel_submitted', { refundPence: MMB.refundPence() });
+    window.location.href = 'end.html';
+  });
+  document.getElementById('keep').addEventListener('click', function () {
+    MMB.track('cancel_confirm_keep');
+  });
+  document.getElementById('close').addEventListener('click', function () {
+    MMB.track('cancel_confirm_keep', { via: 'close' });
+  });
+})();
+</script>
+</body>
+</html>

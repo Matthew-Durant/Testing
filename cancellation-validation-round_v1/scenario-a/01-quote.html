@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-flow="a" data-unmoderated>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Your refund if you cancel</title>
+<link rel="stylesheet" href="../assets/lofi.css">
+</head>
+<body>
+<div class="lo-frame">
+  <header class="lo-pagehead">
+    <span class="lo-dialog-label">Cancel your booking</span>
+    <a class="lo-iconbtn" href="end.html" aria-label="Close and keep my booking" id="close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
+  </header>
+  <main class="lo-pagebody">
+
+    <div class="lo-pagetitle">
+      <i aria-hidden="true"></i>
+      <h1 id="screen-title" data-screen-heading>Your refund if you cancel</h1>
+    </div>
+
+    <div class="lo-bookingref">
+      <span class="lo-t-xs">Your booking:</span>
+      <span class="lo-bookingref-name" data-mmb="hotel">Flamingo Beach Hotel</span>
+      <span class="lo-t-sm" data-mmb="hotel-location">Playa Blanca, Lanzarote, Canary Islands, Spain</span>
+      <span class="lo-t-md" data-mmb="stay-range">Departure - return</span>
+      <span class="lo-t-sm">Reference: <span data-mmb="reference">29140653</span></span>
+    </div>
+
+    <div class="lo-quote is-lead">
+      <p class="lo-quote-head" data-route="online">Cancel today and you'll get <span data-mmb="refund">&pound;0.00</span> back</p>
+      <p class="lo-quote-note" data-route="online">Cancelling today costs <span data-mmb="charge">&pound;0.00</span>, which includes your deposit and any non-refundable extras.</p>
+      <p class="lo-quote-head" data-route="phone">Cancelling today will cost <span data-mmb="shortfall">&pound;0.00</span> more than you've paid</p>
+      <p class="lo-quote-note" data-route="phone" id="reason">The cost of cancelling has gone up as your departure gets closer.</p>
+      <p class="lo-t-xs lo-quote-note">Quoted just now for your booking.</p>
+    </div>
+
+    <section class="lo-card" data-route="phone" aria-labelledby="quote-title">
+      <h2 class="lo-card-title" id="quote-title">Today's cancellation quote</h2>
+      <div class="lo-breakdown">
+        <p class="lo-line"><span>Paid to date</span><span data-mmb="paid-to-date">&pound;0.00</span></p>
+        <p class="lo-line"><span>Cost to cancel</span><span data-mmb="charge">&pound;0.00</span></p>
+        <p class="lo-line is-total"><span>Still to pay</span><span data-mmb="shortfall">&pound;0.00</span></p>
+        <p class="lo-line"><span>Refund</span><span data-mmb="refund">&pound;0.00</span></p>
+      </div>
+      <p class="lo-t-sm">You won't need to pay your outstanding balance of <span data-mmb="outstanding">&pound;0.00</span>.</p>
+    </section>
+
+    <section class="lo-card" aria-labelledby="schedule-title">
+      <div>
+        <h2 class="lo-t-md" id="schedule-title">How a cancellation is calculated</h2>
+        <p class="lo-t-sm">The cost of cancelling is a percentage of your total booking price, and it increases as departure approaches. Your deposit and anything else you've paid count towards this cost.</p>
+      </div>
+
+      <ul class="lo-bands" id="bands" aria-label="Cancellation schedule"></ul>
+
+      <div class="lo-note">
+        <span class="lo-note-title" id="boundary-title">Days at today's cost</span>
+        <span id="boundary-body">The date the cost of cancelling next increases.</span>
+      </div>
+
+      <p class="lo-t-xs lo-quote-note">Quoted live by our booking system, using the cancellation schedule in your booking terms.</p>
+    </section>
+
+    <div class="lo-terms">
+      <div>
+        <h2>Cancellation explained</h2>
+        <p>Our cancellation charges are based on how many days before your booked departure we receive your cancellation notice, and are a percentage of the total cost of the booking not including your insurance premium.</p>
+      </div>
+      <div>
+        <h2>Changing the number of passengers</h2>
+        <p>If you want to cancel one or more passengers on the booking you'll need to call our contact centre and pay a proportion of the applicable cancellation charge for those passengers.</p>
+      </div>
+      <div>
+        <h2>Non-refundables if you cancel</h2>
+        <p>Your deposit is non-refundable, even if the cancellation charge is lower than the deposit amount paid. Where extra facilities or transport options are non-refundable, in part or in full, the cost of these will be added to the cancellation charge you have to pay.</p>
+      </div>
+      <p>If you booked using a Low Deposit Offer, the full deposit amount including free child stated on your confirmation invoice may need to be paid upon cancellation.</p>
+    </div>
+
+    <section class="lo-card is-alert" data-route="phone" aria-labelledby="alert-title">
+      <h2 class="lo-card-title" id="alert-title">Call us to cancel</h2>
+      <p class="lo-t-sm">We can't take this payment online, so you'll need to call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> and cancel your booking on the call.</p>
+      <p class="lo-t-sm">Have your booking reference ready: <span data-mmb="reference">29140653</span>.</p>
+      <p class="lo-t-sm" id="goes-up">The cost of cancelling goes up on <span data-mmb="next-date-short">the next date</span>. Call us as soon as you can.</p>
+    </section>
+
+    <div class="lo-btnbar">
+      <a class="lo-btn is-block" href="02-confirm.html" id="continue" data-route="online">Continue to confirm cancellation</a>
+      <button class="lo-btn is-block" type="button" id="call-open" data-route="phone">Call us to cancel</button>
+      <a class="lo-btn is-secondary is-block" href="end.html" id="keep">Keep my booking</a>
+    </div>
+
+  </main>
+</div>
+
+<div class="lo-scrim" id="contact-sheet" hidden>
+  <div class="lo-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="lo-sheet-head">
+      <h2 id="sheet-title">Call us to cancel</h2>
+      <button class="lo-iconbtn" type="button" data-sheet-close aria-label="Close"><svg class="lo-ico is-24 is-strong" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <p class="lo-t-sm">To cancel, call us. We'll take the <span data-mmb="shortfall">&pound;0.00</span> payment on the call. Your booking reference: <span data-mmb="reference">29140653</span></p>
+    <button class="lo-btn is-secondary" type="button" id="call"><span>Call <span data-mmb="contact-phone">0203 451 2688</span></span></button>
+    <h3 class="lo-t-md">Opening hours</h3>
+    <div class="lo-hours">
+      <div><span>Monday to Friday</span><span>9am to 7pm</span></div>
+      <div><span>Saturday</span><span>9am to 5pm</span></div>
+      <div><span>Sunday</span><span>10am to 5pm</span></div>
+    </div>
+    <p class="lo-t-sm">For more information check out <button class="lo-linkbtn" type="button" id="faq">frequently asked questions</button></p>
+    <div class="lo-sheet-foot">
+      <button class="lo-btn" type="button" data-sheet-close id="sheet-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/lofi.js"></script>
+<script src="../assets/mmb.js"></script>
+<script>
+(function () {
+  var online = MMB.canCancelOnline();
+  var route = online ? 'online' : 'phone';
+
+  /* One screen, two truthful variants. The routing rule decides which, so a
+     days-to-departure override can never show figures that contradict the
+     layout around them. */
+  var nodes = document.querySelectorAll('[data-route]');
+  for (var i = 0; i < nodes.length; i++) {
+    nodes[i].hidden = nodes[i].getAttribute('data-route') !== route;
+  }
+  var title = online ? 'Your refund if you cancel' : 'What it costs to cancel';
+  document.getElementById('screen-title').textContent = title;
+  document.title = title;
+
+  if (MMB.scenario.lowDeposit) {
+    document.getElementById('reason').textContent = 'You booked with a low deposit.';
+  }
+  if (!MMB.nextBand()) document.getElementById('goes-up').hidden = true;
+
+  MMB.renderBands('bands');
+  MMB.renderBoundary('boundary-title', 'boundary-body');
+
+  MMB.track('cancel_quote_viewed', {
+    route: route,
+    dtd: MMB.dates.dtd(),
+    band: MMB.currentBand().label,
+    chargePence: MMB.chargePence(),
+    refundPence: MMB.refundPence(),
+    shortfallPence: MMB.shortfallPence()
+  });
+
+  document.getElementById('continue').addEventListener('click', function () {
+    MMB.track('cancel_quote_continue');
+  });
+  document.getElementById('keep').addEventListener('click', function () {
+    MMB.track('cancel_quote_keep');
+  });
+  document.getElementById('close').addEventListener('click', function () {
+    MMB.track('cancel_quote_keep', { via: 'close' });
+  });
+
+  /* Contact sheet */
+  var scrim = document.getElementById('contact-sheet');
+  document.getElementById('call-open').addEventListener('click', function () {
+    MMB.track('cancel_contact_opened');
+    LOFI.openSheet('contact-sheet');
+  });
+  scrim.addEventListener('click', function (e) {
+    if (e.target === scrim) document.getElementById('sheet-close').click();
+  });
+  /* Simulated. A tel: link would pull an unmoderated participant out of the
+     session and into their dialler, so the tap is logged and acknowledged. */
+  document.getElementById('call').addEventListener('click', function () {
+    MMB.track('cancel_contact_call_tapped');
+    LOFI.toast('Calls are switched off in this test');
+  });
+  document.getElementById('faq').addEventListener('click', function () {
+    MMB.track('cancel_contact_faq_tapped');
+  });
+})();
+</script>
+</body>
+</html>
